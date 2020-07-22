@@ -34,6 +34,8 @@ define(['jquery', 'jqueryui', 'qtype_gapfill/jquery.ui.touch-punch-improved'], f
                 },
                 stop: function() {
                     $(this).fadeTo(0, 1);
+                    $(this).addClass("dropped");
+                    debugger;
                 }
             });
             $(".droptarget").droppable({
@@ -43,6 +45,7 @@ define(['jquery', 'jqueryui', 'qtype_gapfill/jquery.ui.touch-punch-improved'], f
                         return;
                     }
                     this.value = $(ui.draggable).text();
+                    debugger;
                     $(this).css("background-color", "white");
                 }
             });
