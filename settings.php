@@ -62,4 +62,11 @@ if (is_siteadmin()) {
                      new moodle_url('/question/type/gapfill/import_examples.php'),
                     'moodle/site:config'
             ));
+          $ADMIN->add('qtype_gapfill_category',
+          new admin_externalpage(
+                  'qtype_gapfill_styles',
+                    get_string('styles', 'qtype_gapfill'),
+                    new moodle_url('/question/type/gapfill/admin/styles.php'),
+                  'moodle/site:config'
+          ));
 }

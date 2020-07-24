@@ -85,6 +85,9 @@ $string['course'] = 'Import help';
 $string['courseshortname'] = 'Course Shortname';
 $string['visitquestions'] = 'Click <a href={$a}>here</a> to visit the questions';
 $string['letterhints'] = 'Letter hints';
+$string['styles'] = 'Styles';
+
+
 
 /* Used in the settings */
 $string['addhinttext'] = 'Add hint text to editing form';
