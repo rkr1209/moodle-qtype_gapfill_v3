@@ -18,37 +18,41 @@
  *
  * @package    qtype
  * @subpackage gapfill
- * @copyright  2017 Marcus Green
+ * @copyright  2020 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define(['jquery', 'jqueryui', 'qtype_gapfill/jquery.ui.touch-punch-improved'], function($) {
-    return {
-        init: function() {
-            $(".draggable").draggable({
-                revert: false,
-                helper: 'clone',
-                cursor: 'pointer',
-                scroll: 'false',
-                start: function() {
-                    $(this).fadeTo('fast', 0.5);
-                },
-                stop: function() {
-                    $(this).fadeTo(0, 1);
-                    $(this).addClass("dropped");
-                    debugger;
-                }
-            });
-            $(".droptarget").droppable({
-                hoverClass: 'active',
-                drop: function(event, ui) {
-                    if ($(ui.draggable).hasClass('readonly')) {
-                        return;
-                    }
-                    this.value = $(ui.draggable).text();
-                    debugger;
-                    $(this).css("background-color", "white");
-                }
-            });
-        }
-    };
+  return {
+      init: function() {
+          $(".draggable").draggable({
+              revert: false,
+              helper: 'clone',
+              cursor: 'pointer',
+              scroll: 'false',
+              start: function() {
+                  $(this).fadeTo('fast', 0.5);
+              },
+              stop: function() {
+                  $(this).fadeTo(0, 1);
+              }
+          });
+          $(".droptarget").droppable({
+              hoverClass: 'active',
+              drop: function(event, ui) {
+                  if ($(ui.draggable).hasClass('readonly')) {
+                      return;
+                  }
+                  this.value = $(ui.draggable).text();
+                  $(this).css("background-color", "white");
+                  $(this).addClass("dropped");
+              },
+          });
+          $(".droptarget").dblclick(function() {
+             $(this).val("");
+             $(this).removeClass("dropped");
+             $(this).css('cursor', 'pointer');
+             $(this).css('caret-color', 'transparent');
+          });
+      }
+  };
 });
