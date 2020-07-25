@@ -86,7 +86,7 @@ $string['courseshortname'] = 'Course Shortname';
 $string['visitquestions'] = 'Click <a href={$a}>here</a> to visit the questions';
 $string['letterhints'] = 'Letter hints';
 $string['styles'] = 'Styles';
-
+$string['css'] = 'CSS';
 
 
 /* Used in the settings */

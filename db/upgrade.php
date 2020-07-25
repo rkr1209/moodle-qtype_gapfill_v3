@@ -78,5 +78,26 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         // Gapfill savepoint reached.
         upgrade_plugin_savepoint(true, 2017111700, 'qtype', 'gapfill');
     }
+    if ($oldversion < 2020070401) {
+
+      // Define table question_gapfill_style to be created.
+      $table = new xmldb_table('question_gapfill_style');
+
+      // Adding fields to table question_gapfill_style.
+      $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+      $table->add_field('name', XMLDB_TYPE_CHAR, '50', null, null, null, null);
+      $table->add_field('style', XMLDB_TYPE_TEXT, null, null, null, null, null);
+
+      // Adding keys to table question_gapfill_style.
+      $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
+      // Conditionally launch create table for question_gapfill_style.
+      if (!$dbman->table_exists($table)) {
+          $dbman->create_table($table);
+      }
+
+      // Gapfill savepoint reached.
+      upgrade_plugin_savepoint(true, 2020070401, 'qtype', 'gapfill');
+  }
     return true;
 }

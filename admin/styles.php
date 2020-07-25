@@ -29,5 +29,46 @@ require_once($CFG->libdir.'/adminlib.php');
 
 admin_externalpage_setup('qtype_gapfill_styles');
 
+
+/**
+ *  Manage css for styling instances of the gapfill quesiton
+ *
+ * @copyright Marcus Green 2020
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Form for importing example questions
+ */
+class gapfill_styles_form extends moodleform {
+
+  protected function definition() {
+      $mform = $this->_form;
+      $itemrepeatsatstart = 1;
+      $this->definition_question_style($mform, $itemrepeatsatstart);
+      $mform->addElement('submit', 'submitbutton', get_string('save'));
+  }
+  function definition_question_style($mform, $itemrepeatsatstart){
+      $repeatarray =[];
+      $repeatarray[] = $mform->createElement('text', 'name', get_string('name'));
+      $repeatarray[]=  $mform->createElement('textarea', 'css', get_string('css','qtype_gapfill'),['cols'=>'80']);
+      $repeatno = 1;
+      $repeateloptions = [];
+      $this->repeat_elements($repeatarray, $repeatno,
+           $repeateloptions, 'style_repeats', 'option_add_fields', 1);
+      $mform->setType('name', PARAM_TEXT);
+      $mform->setType('css', PARAM_RAW);
+
+  }
+
+}
+$mform = new gapfill_styles_form();
+
+if ($data = $mform->get_data()) {
+  global $DB;
+  if($data->css > "" ){
+
+  }
+}
+
+
 echo $OUTPUT->header();
+$mform->display();
 echo $OUTPUT->footer();
