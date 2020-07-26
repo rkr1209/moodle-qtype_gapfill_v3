@@ -71,11 +71,6 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
         $seranswers = $qa->get_step(0)->get_qt_var('_allanswers');
         $this->allanswers = unserialize($seranswers);
         $output = "";
-        $output .= "<style>
-        .que.gapfill input.droptarget.dropped {
-          color: green;
-        }
-        </style>";
         $answeroptions = '';
         if ($question->answerdisplay == "dragdrop") {
             $answeroptions = html_writer::empty_tag('div', array('class' => ' answeroptions '));

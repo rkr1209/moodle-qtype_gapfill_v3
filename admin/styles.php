@@ -42,7 +42,10 @@ class gapfill_styles_form extends moodleform {
   protected function definition() {
       $mform = $this->_form;
       $itemrepeatsatstart = 1;
-      $this->definition_question_style($mform, $itemrepeatsatstart);
+      $mform->addElement('text', 'name', get_string('name'));
+      $mform->addElement('textarea', 'style', get_string('css','qtype_gapfill'),['cols'=>'80']);
+
+     // $this->definition_question_style($mform, $itemrepeatsatstart);
       $mform->addElement('submit', 'submitbutton', get_string('save'));
   }
   function definition_question_style($mform, $itemrepeatsatstart){
@@ -63,8 +66,10 @@ $mform = new gapfill_styles_form();
 
 if ($data = $mform->get_data()) {
   global $DB;
-  if($data->css > "" ){
+  if($data->style > "" ){
 
+    $params = ["name"=>$data->name, "style" => $data->style];
+    $DB->insert_record('question_gapfill_style',$params);
   }
 }
 
