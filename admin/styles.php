@@ -29,6 +29,8 @@ require_once($CFG->libdir.'/adminlib.php');
 
 admin_externalpage_setup('qtype_gapfill_styles');
 
+require_login();
+
 
 /**
  *  Manage css for styling instances of the gapfill quesiton
@@ -42,10 +44,15 @@ class gapfill_styles_form extends moodleform {
   protected function definition() {
       $mform = $this->_form;
       $itemrepeatsatstart = 1;
+      $style = $this->get_style();
       $mform->addElement('text', 'name', get_string('name'));
+      $mform->setType('name',PARAM_TEXT);
+      $mform->setDefault('name',$style->name);
       $mform->addElement('textarea', 'style', get_string('css','qtype_gapfill'),['cols'=>'80']);
+      $mform->setType('name',PARAM_TEXT);
+      $mform->setDefault('style',$style->style);
 
-     // $this->definition_question_style($mform, $itemrepeatsatstart);
+
       $mform->addElement('submit', 'submitbutton', get_string('save'));
   }
   function definition_question_style($mform, $itemrepeatsatstart){
@@ -59,6 +66,19 @@ class gapfill_styles_form extends moodleform {
       $mform->setType('name', PARAM_TEXT);
       $mform->setType('css', PARAM_RAW);
 
+  }
+  public function get_style(){
+    global $DB;
+    $id= optional_param('id', 0, PARAM_INT);  // styleid
+    if ($id) {
+      $style = $DB->get_record('question_gapfill_style', ['id' => $id], '*', MUST_EXIST);
+    } else {
+      $sql = 'SELECT * FROM {question_gapfill_style} WHERE id IN (SELECT MAX(id) FROM {question_gapfill_style})';
+      $style = $DB->get_record_sql($sql);
+      if($style){
+        return $style;
+      }
+    }
   }
 
 }
