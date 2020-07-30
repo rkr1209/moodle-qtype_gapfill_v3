@@ -87,6 +87,11 @@ $string['visitquestions'] = 'Click <a href={$a}>here</a> to visit the questions'
 $string['letterhints'] = 'Letter hints';
 $string['styles'] = 'Styles';
 $string['css'] = 'CSS';
+$string['next'] = 'Next >>';
+$string['previous'] = '<< Previous';
+$string['delete'] = 'Delete';
+$string['create'] = 'Create';
+
 
 
 /* Used in the settings */

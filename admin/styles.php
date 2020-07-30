@@ -33,7 +33,6 @@ require_login();
 
 global $DB,$PAGE;
 $id = optional_param('id',0,PARAM_INT);
-//$id = required_param('id', PARAM_INT);
 
 $action = optional_param('action','', PARAM_ALPHANUMEXT);
 $params = ['id' => $id, 'action' => $action];
@@ -44,10 +43,21 @@ $PAGE->set_url('/question/type/gapfill/admin/style.php', $params);
 if(! $DB->count_records('question_gapfill_style')){
   $id = $DB->insert_record('question_gapfill_style',['name' =>'','style'=>'']);
 }
+$maxmin = "";
 if(!$id){
   $style = $DB->get_record_sql('select * from {question_gapfill_style} order by id limit 1');
 } else {
   $style = $DB->get_record('question_gapfill_style', ['id' => $id]);
+  $sql = "SELECT max(id) maxid FROM {question_gapfill_style}";
+  $record = $DB->get_record_sql($sql);
+  if($style->id == $record->maxid){
+    $maxmin='max';
+  }
+  $sql = "SELECT min(id) minid FROM {question_gapfill_style}";
+  $record = $DB->get_record_sql($sql);
+  if($style->id == $record->minid){
+    $maxmin='min';
+  }
 }
 
 /**
@@ -63,6 +73,7 @@ class gapfill_styles_form extends moodleform {
       $mform = $this->_form;
 
       $style = $this->_customdata['style'];
+      $maxmin = $this->_customdata['maxmin'];
       $id = $style->id;
      if (!empty($this->_customdata['id'])) {
        $mform->addElement('hidden', 'action', 'edit');
@@ -70,13 +81,21 @@ class gapfill_styles_form extends moodleform {
       }
 
 
+      $nextdisabled = [];
+      $previousdisabled =[];
+      if($maxmin == 'max'){
+        $nextdisabled = ['disabled' => true];
+      }
+      if($maxmin == 'min'){
+        $previousdisabled = ['disabled' => true];
+      }
       $itemrepeatsatstart = 1;
-      $nextprevious[] = $mform->createElement('submit','previous','<< Previous ');
-      $nextprevious[] = $mform->createElement('submit','next','Next >>');
+      $nextprevious[] = $mform->createElement('submit','previous',get_string('previous','qtype_gapfill'),$previousdisabled);
+
+      $nextprevious[] = $mform->createElement('submit','next',get_string('next','qtype_gapfill'),$nextdisabled);
       $mform->addGroup($nextprevious, 'nextprevious', '', [''], false);
 
-      $mform->addElement('text','id','');
-     // $mform->addElement('text','id','', ['disabled' => 'true']);
+      $mform->addElement('hidden','id','', ['readonly' => 'true']);
 
       $mform->setDefault('id',$id);
       $mform->setType('id', PARAM_INT);
@@ -87,7 +106,10 @@ class gapfill_styles_form extends moodleform {
 
        $this->add_action_buttons();
 
-      $mform->addElement('submit','newstyle','New Style');
+      $createdelete[] = $mform->createElement('submit','create',get_string('create','qtype_gapfill'));
+      $createdelete[] = $mform->createElement('submit','delete',get_string('delete','qtype_gapfill'));
+      $mform->addGroup($createdelete, 'createdelete', '', [''], false);
+
       if($style){
         $mform->setDefault('name',$style->name);
         $mform->setDefault('style',$style->style);
@@ -95,18 +117,7 @@ class gapfill_styles_form extends moodleform {
 
 
   }
-  function definition_question_style($mform, $itemrepeatsatstart){
-      $repeatarray =[];
-      $repeatarray[] = $mform->createElement('text', 'name', get_string('name'));
-      $repeatarray[]=  $mform->createElement('textarea', 'css', get_string('css','qtype_gapfill'),['cols'=>'80']);
-      $repeatno = 1;
-      $repeateloptions = [];
-      $this->repeat_elements($repeatarray, $repeatno,
-           $repeateloptions, 'style_repeats', 'option_add_fields', 1);
-      $mform->setType('name', PARAM_TEXT);
-      $mform->setType('css', PARAM_RAW);
 
-  }
   public function get_style($mform,$id){
     global $DB;
     if ($id) {
@@ -123,16 +134,18 @@ class gapfill_styles_form extends moodleform {
 }
 $id = $style->id;
 
-$mform = new gapfill_styles_form(null, ['style' =>$style]);
+$mform = new gapfill_styles_form(null, ['style' =>$style,'maxmin'=>$maxmin]);
 
 
 
 
 if ($data = $mform->get_data()) {
   global $DB;
-  if(isset($data->newstyle)){
+  if(isset($data->create)){
     $params = ["name"=> "", "style" => ""];
     $id = $DB->insert_record('question_gapfill_style',$params);
+    $params['id'] =$id;
+    redirect(new moodle_url('/question/type/gapfill/admin/styles.php', $params));
   }
   if(isset($data->submitbutton)){
     $params = ['id'=>$style->id, "name"=> $data->name, "style" => $data->style];
@@ -152,6 +165,11 @@ if ($data = $mform->get_data()) {
     if($result){
       $params=['id' =>$result->id, 'action'=>'previous'];
     }
+    redirect(new moodle_url('/question/type/gapfill/admin/styles.php', $params));
+  }
+  if(isset($data->delete)){
+    $DB->delete_records('question_gapfill_style', ['id'=>$id]);
+    $params['id'] = '';
     redirect(new moodle_url('/question/type/gapfill/admin/styles.php', $params));
   }
 
