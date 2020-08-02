@@ -53,7 +53,6 @@ question editing form
 
 /* the gap where answers are dropped/keyed in */
 .que.gapfill input[type=text] {
-    background: white;
     border: solid black thin;
     border-radius: 4px;
     color: black;

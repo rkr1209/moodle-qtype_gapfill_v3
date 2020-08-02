@@ -102,7 +102,7 @@ class gapfill_styles_form extends moodleform {
 
       $mform->addElement('text', 'name', get_string('name'));
       $mform->setType('name',PARAM_TEXT);
-      $mform->addElement('textarea', 'style', get_string('css','qtype_gapfill'),['rows' =>'8','cols' => '80']);
+      $mform->addElement('textarea', 'style', get_string('css','qtype_gapfill'),['rows' =>'15','cols' => '80']);
 
        $this->add_action_buttons();
 
@@ -150,6 +150,8 @@ if ($data = $mform->get_data()) {
   if(isset($data->submitbutton)){
     $params = ['id'=>$style->id, "name"=> $data->name, "style" => $data->style];
     $id = $DB->update_record('question_gapfill_style',$params);
+    \core\notification::add('Saved', \core\notification::INFO);
+
   }
   if(isset($data->next)){
     $sql = "SELECT id FROM {question_gapfill_style} WHERE id > '$id' ORDER BY id ASC LIMIT 1";

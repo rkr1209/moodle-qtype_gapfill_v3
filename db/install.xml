@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="question/type/gapfill/db" VERSION="20200726" COMMENT="XMLDB file for Moodle question/type/gapfill"
+<XMLDB PATH="question/type/gapfill/db" VERSION="20200801" COMMENT="XMLDB file for Moodle question/type/gapfill"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
@@ -16,6 +16,7 @@
         <FIELD NAME="fixedgapsize" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="1" SEQUENCE="false" COMMENT="all gaps set to the same size in the renderer"/>
         <FIELD NAME="optionsaftertext" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Show options after text"/>
         <FIELD NAME="letterhints" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Add letters from correct response incrementally in interactive mode"/>
+        <FIELD NAME="style" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="the css class associated with this instance"/>
         <FIELD NAME="correctfeedback" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="correctfeedbackformat" TYPE="int" LENGTH="2" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="partiallycorrectfeedback" TYPE="text" NOTNULL="false" SEQUENCE="false"/>

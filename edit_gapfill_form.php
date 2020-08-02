@@ -151,7 +151,7 @@ class qtype_gapfill_edit_form extends question_edit_form {
 
         global $DB;
         $styles = $DB->get_records_menu('question_gapfill_style',[],'id,name');
-        $mform->addElement('select','styles','',$styles);
+        $mform->addElement('select','style','',$styles);
 
          /* put draggable answer options after the text. They don't have to be dragged as far, handy on small screens */
         $mform->addElement('advcheckbox', 'optionsaftertext', get_string('optionsaftertext', 'qtype_gapfill'));
