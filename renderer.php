@@ -71,7 +71,7 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
         $seranswers = $qa->get_step(0)->get_qt_var('_allanswers');
         $this->allanswers = unserialize($seranswers);
         $output = "";
-        $output .= $this->get_css($question->style);
+        //$output .= $this->get_css($question->style);
         $answeroptions = '';
         if ($question->answerdisplay == "dragdrop") {
             $answeroptions = html_writer::empty_tag('div', array('class' => ' answeroptions '));
@@ -406,11 +406,13 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
 
     private function get_css($styleid){
       global $DB;
-      $result = $DB->get_record('question_gapfill_style',['id' => $styleid]);
+      $css = null;
+      if($DB->get_record('question_gapfill_style',['id' => $styleid])){
       $prefix = '.que.gapfill';
       $css = '<style>'.PHP_EOL;
       $css .= $result->style;
       $css .= PHP_EOL.'</style>';
+      }
       return $css;
     }
 
