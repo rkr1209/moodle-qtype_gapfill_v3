@@ -43,7 +43,6 @@ define(['jquery', 'jqueryui', 'qtype_gapfill/jquery.ui.touch-punch-improved'], f
                       return;
                   }
                   this.value = $(ui.draggable).text();
-                  $(this).css("background-color", "white");
                   $(this).addClass("dropped");
               },
           });
