@@ -112,3 +112,9 @@ $string['example2'] = 'Select the verbs from the dropdowns. He [laughed] and [sa
 $string['distractor2'] = 'blue,shoe,small';
 $string['example3'] = 'Where does the kangaroo come from? [Australia]. The next gap will acceps either cat or dog [cat|dog]';
 $string['privacy:null_reason'] = 'The Gapfill question type does not effect or store any data itself.';
+$string['theme'] = 'Theme';
+$string['theme_help'] = 'Theme help';
+$string['themes'] = 'Themes';
+$string['themes_text'] = 'Themes help';
+
+

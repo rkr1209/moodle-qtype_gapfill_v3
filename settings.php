@@ -33,6 +33,12 @@ if (is_siteadmin()) {
     $conf = get_config('qtype_gapfill');
     $settingspage = new admin_settingpage('gfsettings' , get_string('settings'));
     $ADMIN->add('qtype_gapfill_category', $settingspage);
+
+    $settingspage->add(new admin_setting_configtextarea('qtype_gapfill/themes',
+        get_string('themes', 'qtype_gapfill'),
+        get_string('themes_text', 'qtype_gapfill'),
+        "", PARAM_RAW, 20, 40));
+
      $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/disableregex',
         get_string('disableregex', 'qtype_gapfill'),
         get_string('disableregexset_text', 'qtype_gapfill'), 1));

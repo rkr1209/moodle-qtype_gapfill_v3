@@ -53,7 +53,7 @@ class qtype_gapfill extends question_type {
      */
     public function extra_question_fields() {
         return array('question_gapfill', 'answerdisplay', 'delimitchars', 'casesensitive',
-            'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'style');
+            'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'theme');
     }
 
 
@@ -275,7 +275,7 @@ class qtype_gapfill extends question_type {
             $options->fixedgapsize = '';
             $options->optionsaftertext = '';
             $options->letterhints = '';
-            $options->style = '';
+            $options->theme = '';
             $options->id = $DB->insert_record('question_gapfill', $options);
         }
 
@@ -287,7 +287,7 @@ class qtype_gapfill extends question_type {
         $options->fixedgapsize = $question->fixedgapsize;
         $options->optionsaftertext = $question->optionsaftertext;
         $options->letterhints = $question->letterhints;
-        $options->style = $question->style;
+        $options->theme = $question->theme;
         $options = $this->save_combined_feedback_helper($options, $question, $context, true);
         $DB->update_record('question_gapfill', $options);
     }

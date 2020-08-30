@@ -149,10 +149,16 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->setDefault('optionsaftertext', $config->fixedgapsize);
         $mform->addHelpButton('fixedgapsize', 'fixedgapsize', 'qtype_gapfill');
 
-        global $DB;
-        $styles = $DB->get_records_menu('question_gapfill_style',[],'id,name');
-        array_unshift($styles,'');
-        $mform->addElement('select','style','',$styles);
+        $settings = get_config('qtype_gapfill','themes');
+        $xml = simplexml_load_string($settings);
+        $elements = $xml->xpath('//theme');
+        $themes = [];
+        foreach($elements as $theme){
+          $themes[(string) $theme->attributes()->name] = (string) $theme->attributes()->name;
+        }
+
+        $mform->addElement('select','theme',get_string('theme','qtype_gapfill'), $themes);
+        $mform->addHelpButton('theme', 'theme', 'qtype_gapfill');
 
          /* put draggable answer options after the text. They don't have to be dragged as far, handy on small screens */
         $mform->addElement('advcheckbox', 'optionsaftertext', get_string('optionsaftertext', 'qtype_gapfill'));
