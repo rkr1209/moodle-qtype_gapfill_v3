@@ -150,11 +150,12 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->addHelpButton('fixedgapsize', 'fixedgapsize', 'qtype_gapfill');
 
         $settings = get_config('qtype_gapfill','themes');
-        $xml = simplexml_load_string($settings);
-        $elements = $xml->xpath('//theme');
-        $themes = [];
-        foreach($elements as $theme){
-          $themes[(string) $theme->attributes()->name] = (string) $theme->attributes()->name;
+        $themes[''] = 'Select';
+        if($xml=simplexml_load_string($settings)){
+            $elements = $xml->xpath('//theme');
+            foreach($elements as $theme){
+              $themes[(string) $theme->attributes()->name] = (string) $theme->attributes()->name;
+            }
         }
 
         $mform->addElement('select','theme',get_string('theme','qtype_gapfill'), $themes);
