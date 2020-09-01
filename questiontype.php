@@ -52,8 +52,8 @@ class qtype_gapfill extends question_type {
      * @return array
      */
     public function extra_question_fields() {
-        return array('question_gapfill', 'answerdisplay', 'delimitchars', 'casesensitive',
-            'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'theme');
+        return ['question_gapfill', 'answerdisplay', 'delimitchars', 'casesensitive',
+            'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'singleuse', 'theme'];
     }
 
 
@@ -180,16 +180,6 @@ class qtype_gapfill extends question_type {
         $form->defaultmark = count($gaps);
         return parent::save_question($question, $form);
     }
-    /**
-     * Communicate with the dragdrop.js script
-     *
-     * @return void
-     */
-    public function find_standard_scripts() {
-        global $PAGE;
-        parent::find_standard_scripts();
-        $PAGE->requires->js_call_amd('qtype_gapfill/dragdrop', 'init');
-    }
 
     /**
      * chop the delimit string into a two element array
@@ -276,6 +266,7 @@ class qtype_gapfill extends question_type {
             $options->optionsaftertext = '';
             $options->letterhints = '';
             $options->theme = '';
+            $options->singleuse = '';
             $options->id = $DB->insert_record('question_gapfill', $options);
         }
 
@@ -288,6 +279,8 @@ class qtype_gapfill extends question_type {
         $options->optionsaftertext = $question->optionsaftertext;
         $options->letterhints = $question->letterhints;
         $options->theme = $question->theme;
+        $options->singleuse = $question->singleuse;
+
         $options = $this->save_combined_feedback_helper($options, $question, $context, true);
         $DB->update_record('question_gapfill', $options);
     }

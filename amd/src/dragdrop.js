@@ -23,6 +23,7 @@
  */
 define(['jquery', 'jqueryui', 'qtype_gapfill/jquery.ui.touch-punch-improved'], function($) {
   return {
+<<<<<<< HEAD
       init: function() {
           $(".draggable").draggable({
               revert: false,
@@ -53,5 +54,64 @@ define(['jquery', 'jqueryui', 'qtype_gapfill/jquery.ui.touch-punch-improved'], f
              $(this).css('caret-color', 'transparent');
           });
       }
+=======
+    init: function(singleuse) {
+      $(".droptarget").on('dblclick', function() {
+        if (singleuse) {
+          dragShow(this);
+          $(this).val("");
+        }
+      });
+
+    /**
+     * Reveal draggables that are not
+     * the the current one
+     *
+     * @param {*} that
+     */
+      function dragShow(that) {
+        var draggables = $(".draggable");
+        var targetVal = $(that).val();
+        var i;
+        for (i = 0; i < draggables.length; i++) {
+          var sourceVal = draggables[i].textContent;
+          if (sourceVal == targetVal) {
+            $(draggables[i]).removeClass("hide");
+          }
+        }
+      }
+
+      $(".droptarget").on('keydown drop', function() {
+        dragShow(this);
+      });
+
+      $(".draggable").draggable({
+        revert: false,
+        helper: 'clone',
+        cursor: 'pointer',
+        scroll: 'false',
+      });
+
+      $(".droptarget").droppable({
+        hoverClass: 'active',
+        drop: function(event, ui) {
+          if ($(ui.draggable).hasClass('readonly')) {
+            return;
+          }
+          this.value = $(ui.draggable).text();
+          $(this).css("background-color", "white");
+          $(this).addClass("dropped");
+          if (singleuse) {
+            $(ui.draggable).addClass("hide");
+          }
+        }
+      });
+      $(".droptarget").dblclick(function() {
+        $(this).val("");
+        $(this).removeClass("dropped");
+        $(this).css("background-color", "white");
+     });
+    }
+>>>>>>> master
   };
 });

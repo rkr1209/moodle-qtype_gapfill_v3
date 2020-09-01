@@ -78,6 +78,7 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         // Gapfill savepoint reached.
         upgrade_plugin_savepoint(true, 2017111700, 'qtype', 'gapfill');
     }
+<<<<<<< HEAD
     if ($oldversion < 2020082903) {
       if (!$dbman->table_exists('question_gapfill_style')) {
         $table = new xmldb_table('question_gapfill_style');
@@ -93,6 +94,29 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         $dbman->add_field($table, $field);
     }
        upgrade_plugin_savepoint(true, 2020082903, 'qtype', 'gapfill');
+=======
+    if ($oldversion < 2020070400) {
+        if (!$dbman->field_exists('question_gapfill', 'singleuse')) {
+            $field = new xmldb_field('singleuse', XMLDB_TYPE_INTEGER, '1');
+            $table = new xmldb_table('question_gapfill');
+            $dbman->add_field($table, $field);
+        }
+        // Gapfill savepoint reached.
+        upgrade_plugin_savepoint(true, 2020070400, 'qtype', 'gapfill');
+
+    }
+    if ($oldversion < 2020082902) {
+
+        // Changing the default of field singleuse on table question_gapfill to 0.
+        $table = new xmldb_table('question_gapfill');
+        $field = new xmldb_field('singleuse', XMLDB_TYPE_INTEGER, '1', null, null, null, '0', 'optionsaftertext');
+
+        // Launch change of default for field singleuse.
+        $dbman->change_field_default($table, $field);
+
+        // Gapfill savepoint reached.
+        upgrade_plugin_savepoint(true, 2020082902, 'qtype', 'gapfill');
+>>>>>>> master
     }
     return true;
 }
