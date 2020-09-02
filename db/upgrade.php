@@ -78,21 +78,6 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         // Gapfill savepoint reached.
         upgrade_plugin_savepoint(true, 2017111700, 'qtype', 'gapfill');
     }
-    if ($oldversion < 2020082903) {
-      if (!$dbman->table_exists('question_gapfill_style')) {
-        $table = new xmldb_table('question_gapfill_style');
-        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-        $table->add_field('name', XMLDB_TYPE_CHAR, '50', null, null, null, null);
-        $table->add_field('theme', XMLDB_TYPE_TEXT, null, null, null, null, null);
-        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
-        $dbman->create_table($table);
-      }
-      if (!$dbman->field_exists('question_gapfill', 'theme')) {
-        $field = new xmldb_field('theme', XMLDB_TYPE_CHAR, '80', null, true, null, 0, 'letterhints');
-        $table = new xmldb_table('question_gapfill');
-        $dbman->add_field($table, $field);
-    }
-       upgrade_plugin_savepoint(true, 2020082903, 'qtype', 'gapfill');
     if ($oldversion < 2020070400) {
         if (!$dbman->field_exists('question_gapfill', 'singleuse')) {
             $field = new xmldb_field('singleuse', XMLDB_TYPE_INTEGER, '1');
@@ -115,7 +100,15 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         // Gapfill savepoint reached.
         upgrade_plugin_savepoint(true, 2020082902, 'qtype', 'gapfill');
     }
-    return true;
+    if ($oldversion < 2020082903) {
+      if (!$dbman->field_exists('question_gapfill', 'theme')) {
+        $field = new xmldb_field('theme', XMLDB_TYPE_CHAR, '80', null, true, null, 0, 'letterhints');
+        $table = new xmldb_table('question_gapfill');
+        $dbman->add_field($table, $field);
+    }
+      // Gapfill savepoint reached.
+      upgrade_plugin_savepoint(true, 2020082903, 'qtype', 'gapfill');
 
   }
+    return true;
 }
