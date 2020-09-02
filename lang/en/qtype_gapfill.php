@@ -85,7 +85,6 @@ $string['course'] = 'Import help';
 $string['courseshortname'] = 'Course Shortname';
 $string['visitquestions'] = 'Click <a href={$a}>here</a> to visit the questions';
 $string['letterhints'] = 'Letter hints';
-<<<<<<< HEAD
 $string['styles'] = 'Styles';
 $string['css'] = 'CSS';
 $string['next'] = 'Next >>';
@@ -94,11 +93,9 @@ $string['delete'] = 'Delete';
 $string['create'] = 'Create';
 
 
-=======
 $string['singleuse'] = 'Single use draggables';
 $string['singleuse_text'] = 'Remove draggables from list when dropped into a gap';
 $string['singleuse_help'] = 'Remove draggables from list when dropped into a gap';
->>>>>>> master
 
 /* Used in the settings */
 $string['addhinttext'] = 'Add hint text to editing form';
