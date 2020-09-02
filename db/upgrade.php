@@ -116,4 +116,6 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2020082902, 'qtype', 'gapfill');
     }
     return true;
+
+  }
 }
