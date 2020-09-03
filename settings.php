@@ -32,14 +32,13 @@ if (is_siteadmin()) {
     $ADMIN->add('qtypesettings', new admin_category('qtype_gapfill_category', get_string('pluginname', 'qtype_gapfill')));
     $conf = get_config('qtype_gapfill');
     $settingspage = new admin_settingpage('gfsettings' , get_string('settings'));
-    $ADMIN->add('qtype_gapfill_category', $settingspage);
 
+    $ADMIN->add('qtype_gapfill_category', $settingspage);
     $settingspage->add(new admin_setting_configtextarea('qtype_gapfill/themes',
         get_string('themes', 'qtype_gapfill'),
         get_string('themes_text', 'qtype_gapfill'),
         "", PARAM_RAW, 20, 40));
-
-     $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/disableregex',
+    $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/disableregex',
         get_string('disableregex', 'qtype_gapfill'),
         get_string('disableregexset_text', 'qtype_gapfill'), 1));
     $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/singleuse',
@@ -71,11 +70,4 @@ if (is_siteadmin()) {
                      new moodle_url('/question/type/gapfill/import_examples.php'),
                     'moodle/site:config'
             ));
-          $ADMIN->add('qtype_gapfill_category',
-          new admin_externalpage(
-                  'qtype_gapfill_styles',
-                    get_string('styles', 'qtype_gapfill'),
-                    new moodle_url('/question/type/gapfill/admin/styles.php'),
-                  'moodle/site:config'
-          ));
 }
