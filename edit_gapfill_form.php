@@ -149,7 +149,6 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->setDefault('fixedgapsize', $config->fixedgapsize);
         $mform->addHelpButton('fixedgapsize', 'fixedgapsize', 'qtype_gapfill');
 
-<<<<<<< HEAD
         $settings = get_config('qtype_gapfill','themes');
         $themes[''] = 'Select';
         if($xml=simplexml_load_string($settings)){
@@ -163,14 +162,12 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->addHelpButton('theme', 'theme', 'qtype_gapfill');
 
          /* put draggable answer options after the text. They don't have to be dragged as far, handy on small screens */
-=======
          // Single use (remove draggables from list when dropped in gap).
          $mform->addElement('advcheckbox', 'singleuse', get_string('singleuse', 'qtype_gapfill'));
          $mform->addHelpButton('singleuse', 'singleuse', 'qtype_gapfill');
          $mform->setDefault('singleuse', $config->singleuse);
 
         // Put draggable answer options after the text. They don't have to be dragged as far, handy on small screens.
->>>>>>> master
         $mform->addElement('advcheckbox', 'optionsaftertext', get_string('optionsaftertext', 'qtype_gapfill'));
         $mform->setDefault('optionsaftertext', $config->optionsaftertext);
         $mform->addHelpButton('optionsaftertext', 'optionsaftertext', 'qtype_gapfill');
