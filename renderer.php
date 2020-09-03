@@ -425,10 +425,14 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
     private function get_theme($themename){
       $themes = get_config('qtype_gapfill','themes');
       $xml = simplexml_load_string($themes);
-      $theme= $xml->xpath("//*[@name='$themename']");
-      $css = $theme[0]->style->saveXML();
-      $script = $theme[0]->script->savexML();
-      return($css .$script);
-  }
+      if($xml){
+        $theme= $xml->xpath("//*[@name='$themename']");
+        $css = $theme[0]->style->saveXML();
+        $script = $theme[0]->script->savexML();
+        return($css .$script);
+      } else {
+        return '';
+      }
+    }
 
 }
