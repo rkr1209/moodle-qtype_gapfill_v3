@@ -425,7 +425,7 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
     private function get_theme($themename){
       $themes = get_config('qtype_gapfill','themes');
       $xml = simplexml_load_string($themes);
-      if($xml){
+      if($xml && $themename){
         $theme= $xml->xpath("//*[@name='$themename']");
         $css = $theme[0]->style->saveXML();
         $script = $theme[0]->script->savexML();
