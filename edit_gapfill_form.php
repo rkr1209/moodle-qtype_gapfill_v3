@@ -151,7 +151,7 @@ class qtype_gapfill_edit_form extends question_edit_form {
 
         $settings = get_config('qtype_gapfill','themes');
         $themes[''] = 'Select';
-        if($xml=simplexml_load_string($settings)){
+        if($xml=@simplexml_load_string($settings)){
             $elements = $xml->xpath('//theme');
             foreach($elements as $theme){
               $themes[(string) $theme->attributes()->name] = (string) $theme->attributes()->name;
