@@ -74,7 +74,6 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
         $seranswers = $qa->get_step(0)->get_qt_var('_allanswers');
         $this->allanswers = unserialize($seranswers);
         $output = "";
-        $output .= $this->get_theme($question->theme);
         $answeroptions = '';
         if ($question->answerdisplay == "dragdrop") {
             $answeroptions = html_writer::empty_tag('div', array('class' => ' answeroptions '));
@@ -95,6 +94,8 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
             }
         }
         $questiontext = html_writer::empty_tag('div', array('class' => 'qtext'));
+        $questiontext .= $this->get_theme($question->theme);
+
         $markedgaps = $question->get_markedgaps($qa, $options);
 
         foreach ($question->textfragments as $place => $fragment) {
@@ -428,6 +429,7 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
       if($xml && $themename){
         $theme= $xml->xpath("//*[@name='$themename']");
         $css = $theme[0]->style->saveXML();
+        $css .="<div class='mobiletheme'><style>.qtype-gapfill p { font-size:3em;}</style></div>";
         $script = $theme[0]->script->savexML();
         return($css .$script);
       } else {
