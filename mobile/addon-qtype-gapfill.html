@@ -7,7 +7,7 @@
         <div id='qbodytext'>
         <p><core-format-text *ngIf="question.optionsaftertext" [component]="component" [componentId]="componentId"
             [text]="question.text" (afterRender)="questionRendered()"></core-format-text></p>
-        <div id="answeroptions">
+        <div id='answeroptions'>
         <core-format-text  [text]="question.answeroptions" ></core-format-text>
         </div>
         <p><core-format-text *ngIf="!question.optionsaftertext"  [component]="component"
