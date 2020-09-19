@@ -1,0 +1,110 @@
+<themes>
+<theme name="Angle">
+<style>
+.que.gapfill .formulation{
+border-radius:10px;
+}
+input.droptarget {
+align-content: center;
+background:pink;
+}
+input.droptarget.dropped {
+transform: rotate(20deg);
+background:red;
+}
+input.droptarget.active {
+  border-radius: 50%;
+  padding:4px;
+  color: blue;
+}
+</style>
+</theme>
+<theme name="Wobble">
+<style>
+.que.gapfill .formulation{  
+background: #EFEFBB;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #D4D3DD, #EFEFBB);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #D4D3DD, #EFEFBB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.que.gapfill .draggable{
+  animation: glow 5s ease-in-out infinite;
+}
+.que.gapfill .droptarget.dropped {
+        animation: shake 0.5s;
+        animation-iteration-count: 1;
+      }
+
+      @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        10% { transform: translate(-1px, -2px) rotate(-1deg); }
+        20% { transform: translate(-3px, 0px) rotate(1deg); }
+        30% { transform: translate(3px, 2px) rotate(0deg); }
+        40% { transform: translate(1px, -1px) rotate(1deg); }
+        50% { transform: translate(-1px, 2px) rotate(-1deg); }
+        60% { transform: translate(-3px, 1px) rotate(0deg); }
+        70% { transform: translate(3px, 1px) rotate(-1deg); }
+        80% { transform: translate(-1px, -1px) rotate(1deg); }
+        90% { transform: translate(1px, 2px) rotate(0deg); }
+        100% { transform: translate(1px, -2px) rotate(-1deg); }
+      }
+@keyframes glow {
+    to {
+box-shadow:3px 3px 4px pink;
+    }
+}
+</style>
+</theme>
+<theme name="Bulge">
+<style>
+.draggable:hover{
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
+}
+.que.gapfill input.droptarget.dropped {
+       -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
+}
+</style>
+</theme>
+<theme name="Underscore">
+<style>
+
+.que.gapfill input.droptarget{
+background:none;
+ border:none;
+  border-bottom: 1px dashed black;
+}
+.que.gapfill p{
+font-size:2em;
+}
+.que.gapfill input.typetext{
+background:none;
+ border:none;
+  border-bottom: 1px dashed black;
+}
+.que.gapfill input.typetext:focus{
+outline:none;
+background:none;
+ border:none;
+  border-bottom: 1px dashed black;
+}
+
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+var inputs = document.getElementsByClassName("typetext");
+for (let input of inputs) {
+input.setAttribute("placeholder",'✏️');
+}
+var inputs = document.getElementsByClassName("droptarget");
+for (let input of inputs) {
+input.setAttribute("placeholder",'🎯');
+}
+});
+</script>
+</theme>
+</themes>
