@@ -15,11 +15,7 @@
 }
 
 .qtype-gapfill div.answeroptions {
-<<<<<<< HEAD
   margin-bottom: 6px;
-=======
-    margin-bottom: 6px;
->>>>>>> master
 }
 
 .qtype-gapfill span.draggable.answers {
@@ -90,9 +86,5 @@ pressed in */
 }
 
 .qtype-gapfill .core-question-answer-incorrect {
-<<<<<<< HEAD
   background-color: #faa;
-=======
-    background-color: #faa;
->>>>>>> master
 }

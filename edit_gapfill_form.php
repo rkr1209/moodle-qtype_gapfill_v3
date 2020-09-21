@@ -144,13 +144,8 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->addElement('select', 'answerdisplay', get_string('answerdisplay', 'qtype_gapfill'), $answerdisplaytypes);
         $mform->addHelpButton('answerdisplay', 'answerdisplay', 'qtype_gapfill');
 
-        // Sets all gaps to the size of the largest gap, avoids giving clues to the correct answer.
-        $mform->addElement('advcheckbox', 'fixedgapsize', get_string('fixedgapsize', 'qtype_gapfill'));
-        $mform->setDefault('fixedgapsize', $config->fixedgapsize);
-        $mform->addHelpButton('fixedgapsize', 'fixedgapsize', 'qtype_gapfill');
-
         $settings = get_config('qtype_gapfill','themes');
-        $themes[''] = 'Select';
+        $themes[''] = 'No Selection';
         if($xml=@simplexml_load_string($settings)){
             $elements = $xml->xpath('//theme');
             foreach($elements as $theme){
@@ -160,6 +155,11 @@ class qtype_gapfill_edit_form extends question_edit_form {
 
         $mform->addElement('select','theme',get_string('theme','qtype_gapfill'), $themes);
         $mform->addHelpButton('theme', 'theme', 'qtype_gapfill');
+
+        // Sets all gaps to the size of the largest gap, avoids giving clues to the correct answer.
+        $mform->addElement('advcheckbox', 'fixedgapsize', get_string('fixedgapsize', 'qtype_gapfill'));
+        $mform->setDefault('fixedgapsize', $config->fixedgapsize);
+        $mform->addHelpButton('fixedgapsize', 'fixedgapsize', 'qtype_gapfill');
 
          /* put draggable answer options after the text. They don't have to be dragged as far, handy on small screens */
          // Single use (remove draggables from list when dropped in gap).
