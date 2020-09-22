@@ -1,0 +1,28 @@
+ <themes>
+    <theme name="BigText">
+      <style>
+      .que.gapfill .draggable, p{
+        font-size:1.5em;
+      }
+      </style>
+    </theme>
+    <theme name="Bulge">
+      <style>
+      .draggable:hover{
+              transform: scale(1.2);
+      }
+      .que.gapfill input.droptarget.dropped {
+              transform: scale(1.2);
+      }
+      </style>
+    </theme>
+    <theme name="Underscore">
+      <style>
+      .que.gapfill  input.droptarget,input.typetext{
+          background:none;
+          border:none;
+          border-bottom: 1px dashed black;
+      }
+      </style>
+    </theme>
+  </themes>

@@ -25,9 +25,9 @@
 defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->libdir . '/formslib.php');
+require_once(__DIR__.'/lib.php');
 
 $settings = null;
-
 if (is_siteadmin()) {
     $ADMIN->add('qtypesettings', new admin_category('qtype_gapfill_category', get_string('pluginname', 'qtype_gapfill')));
     $conf = get_config('qtype_gapfill');
@@ -37,7 +37,7 @@ if (is_siteadmin()) {
     $settingspage->add(new admin_setting_configtextarea('qtype_gapfill/themes',
         get_string('themes', 'qtype_gapfill'),
         get_string('themes_text', 'qtype_gapfill'),
-        "", PARAM_RAW, 20, 40));
+        file_get_contents(__DIR__."/themes.xml") , PARAM_RAW, 20, 40));
     $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/disableregex',
         get_string('disableregex', 'qtype_gapfill'),
         get_string('disableregexset_text', 'qtype_gapfill'), 1));
