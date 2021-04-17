@@ -119,5 +119,4 @@ $string['theme'] = 'Theme';
 $string['theme_help'] = 'Change how questions are rendered';
 $string['themes'] = 'Themes';
 $string['themes_text'] = 'XML containing CSS that can be used for format how questions are rendered';
-
-
+$string['theme_edit'] = 'Theme edit';

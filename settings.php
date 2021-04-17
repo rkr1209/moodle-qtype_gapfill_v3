@@ -64,10 +64,17 @@ if (is_siteadmin()) {
          get_string('delimitset_text', 'qtype_gapfill'),
          "[ ],{ },# #,@ @", PARAM_RAW, 20, 3));
     $ADMIN->add('qtype_gapfill_category',
-            new admin_externalpage(
-                    'qtype_gapfill_import',
-                     get_string('importexamples', 'qtype_gapfill'),
-                     new moodle_url('/question/type/gapfill/import_examples.php'),
-                    'moodle/site:config'
+    new admin_externalpage(
+            'qtype_gapfill_import',
+                get_string('importexamples', 'qtype_gapfill'),
+                new moodle_url('/question/type/gapfill/import_examples.php'),
+            'moodle/site:config'
             ));
+    $ADMIN->add('qtype_gapfill_category',
+            new admin_externalpage(
+                    'qtype_gapfill_theme_edit',
+                        get_string('theme_edit', 'qtype_gapfill'),
+                        new moodle_url('/question/type/gapfill/theme_edit.php'),
+                    'moodle/site:config'
+                ));
 }
