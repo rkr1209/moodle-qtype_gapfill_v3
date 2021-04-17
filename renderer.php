@@ -441,22 +441,19 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
             return get_string('yougotnrightcount', 'qtype_gapfill', $a);
         }
     }
-<<<<<<< HEAD
 
-    private function get_theme($themename){
-      $themes = get_config('qtype_gapfill','themes');
-      $xml = simplexml_load_string($themes);
-      if($xml && $themename){
-        $theme= $xml->xpath("//*[@name='$themename']");
-        $css = $theme[0]->style->saveXML();
-        //$css .="<div class='mobiletheme'><style> .droptarget { font-size:3em;}</style></div>";
-        $script = $theme[0]->script->savexML();
-        return($css .$script);
-      } else {
-        return '';
-      }
+    private function get_theme($themename) {
+        $themes = get_config('qtype_gapfill', 'themes');
+        $xml = simplexml_load_string($themes);
+        if ($xml && $themename) {
+            $theme = $xml->xpath("//*[@name='$themename']");
+            $css = $theme[0]->style->saveXML();
+            //$css .="<div class='mobiletheme'><style> .droptarget { font-size:3em;}</style></div>";.
+            $script = $theme[0]->script->savexML();
+            return($css .$script);
+        } else {
+            return '';
+        }
     }
 
-=======
->>>>>>> master
 }

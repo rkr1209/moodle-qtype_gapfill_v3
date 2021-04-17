@@ -155,7 +155,7 @@ class qtype_gapfill_edit_form extends question_edit_form {
             }
         }
 
-        $mform->addElement('select','theme',get_string('theme','qtype_gapfill'), $themes);
+        $mform->addElement('select', 'theme',get_string('theme', 'qtype_gapfill'), $themes);
         $mform->addHelpButton('theme', 'theme', 'qtype_gapfill');
 
         // Sets all gaps to the size of the largest gap, avoids giving clues to the correct answer.
