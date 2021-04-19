@@ -25,11 +25,8 @@
  */
 require_once('../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->libdir . '/xmlize.php');
-require_once($CFG->libdir . '/questionlib.php');
-require_once($CFG->dirroot . '/question/format/xml/format.php');
 
-admin_externalpage_setup('qtype_gapfill_import');
+admin_externalpage_setup('qtype_gapfill_theme_edit');
 
 /**
  *  Edit gapfill question type themes
@@ -59,42 +56,32 @@ class gapfill_theme_edit_form extends moodleform {
 
         $mform->setDefault('themes', $themes);
         $mform->setType('themes', PARAM_RAW);
-        //$mform->addElement('submit', 'submitbutton', get_string('import'));
+        $navbuttons = [];
+        $navbuttons[] = $mform->createElement('submit', 'previous', 'Previous');
+        $navbuttons[] = $mform->createElement('submit', 'next', 'Next');
+        $mform->addGroup($navbuttons);
         $this->add_action_buttons();
     }
 
 
 }
 
-$mform = new gapfill_theme_edit_form(new moodle_url('/question/type/gapfill/import_examples.php/'));
-if ($fromform = $mform->get_data()) {
-    $category = $mform->questioncategory;
-    $categorycontext = context::instance_by_id($category->contextid);
-    $category->context = $categorycontext;
-
-    $qformat = new qformat_xml();
-    $file = $CFG->dirroot . '/question/type/gapfill/examples/'.current_language().'/gapfill_examples.xml';
-    $qformat->setFilename($file);
-
-    $qformat->setCategory($category);
-    echo $OUTPUT->header();
-    // Do anything before that we need to.
-    if (!$qformat->importpreprocess()) {
-        print_error('cannotimport', 'qtype_gapfill', $PAGE->out);
+$mform = new gapfill_theme_edit_form(new moodle_url('/question/type/gapfill/theme_edit.php/'));
+$message = '';
+if ($data = $mform->get_data()) {
+    if (isset($data->Next)) {
+        $message = 'Next';
     }
-    // Process the uploaded file.
-    if (!$qformat->importprocess($category)) {
-        print_error(get_string('cannotimport', ''), '', $PAGE->url);
-    } else {
-        /* after the import offer a link to go to the course and view the questions */
-        $visitquestions = new moodle_url('/question/edit.php?courseid=' . $mform->course->id);
-        echo $OUTPUT->notification(get_string('visitquestions', 'qtype_gapfill', $visitquestions->out()), 'notifysuccess');
-        echo $OUTPUT->continue_button(new moodle_url('import_examples.php'));
-        echo $OUTPUT->footer();
-        return;
+    if (isset($data->Previous)) {
+        $message = 'Previous';
     }
+
 }
 
 echo $OUTPUT->header();
 $mform->display();
+$OUTPUT->heading('Hello');
+
+
 echo $OUTPUT->footer();
+
