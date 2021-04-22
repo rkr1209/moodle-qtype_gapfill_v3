@@ -23,7 +23,7 @@
  * @copyright  2015 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once('../../../config.php');
+require_once('../../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 admin_externalpage_setup('qtype_gapfill_theme_edit');
@@ -50,12 +50,16 @@ class gapfill_theme_edit_form extends moodleform {
      * mini form for entering the import details
      */
     protected function definition() {
+        global $PAGE;
         $mform = $this->_form;
+        $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/lib/codemirror.css');
+        $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/addon/hint/show-hint.css');
+        $PAGE->requires->js_call_amd('qtype_gapfill/theme_edit', 'init');
         $themes = get_config('qtype_gapfill', 'themes');
-        $mform->addElement('textarea', 'themes', get_string('themes'), ['rows' => 30, 'cols' => 60]);
+        $mform->addElement('textarea', 'theme', get_string('themes'), ['rows' => 30, 'cols' => 60]);
 
-        $mform->setDefault('themes', $themes);
-        $mform->setType('themes', PARAM_RAW);
+        $mform->setDefault('theme', $themes);
+        $mform->setType('theme', PARAM_RAW);
         $navbuttons = [];
         $navbuttons[] = $mform->createElement('submit', 'previous', 'Previous');
         $navbuttons[] = $mform->createElement('submit', 'next', 'Next');

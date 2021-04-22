@@ -74,7 +74,7 @@ if (is_siteadmin()) {
             new admin_externalpage(
                     'qtype_gapfill_theme_edit',
                         get_string('theme_edit', 'qtype_gapfill'),
-                        new moodle_url('/question/type/gapfill/theme_edit.php'),
+                        new moodle_url('/question/type/gapfill/admin/theme_edit.php'),
                     'moodle/site:config'
                 ));
 }
