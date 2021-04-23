@@ -28,7 +28,7 @@ import  'qtype_gapfill/codemirror/mode/css/css';
 // import  'qtype_gapfill/codemirror/mode/xml/xml';
 
 export const init = () => {
-    var editor = CodeMirror.fromTextArea(document.getElementById("id_theme"), {
+    var editor = CodeMirror.fromTextArea(document.getElementById("id_themecode"), {
         lineNumbers: true,
         extraKeys: {"Ctrl-Space": "autocomplete"}
           });

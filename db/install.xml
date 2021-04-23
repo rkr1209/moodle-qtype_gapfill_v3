@@ -44,11 +44,11 @@
         <KEY NAME="gapfill_gapsettings" TYPE="foreign" FIELDS="question" REFTABLE="question" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="question_gapfill_style" COMMENT="CSS to apply to question">
+    <TABLE NAME="question_gapfill_theme" COMMENT="CSS to apply to question">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="name" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="style" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="themecode" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

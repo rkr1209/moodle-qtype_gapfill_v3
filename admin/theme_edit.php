@@ -56,22 +56,26 @@ class gapfill_theme_edit_form extends moodleform {
         $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/addon/hint/show-hint.css');
         $PAGE->requires->js_call_amd('qtype_gapfill/theme_edit', 'init');
         $themes = get_config('qtype_gapfill', 'themes');
-        $mform->addElement('textarea', 'theme', get_string('themes'), ['rows' => 30, 'cols' => 60]);
 
-        $mform->setDefault('theme', $themes);
+        $attributes = [];
+        $mform->addElement('text', 'themename', 'Name');
+        $mform->addElement('textarea', 'themecode', get_string('themes', 'qtype_gapfill'), ['rows' => 30, 'cols' => 80]);
+
+        $mform->setDefault('themecode', $themes);
         $mform->setType('theme', PARAM_RAW);
         $navbuttons = [];
         $navbuttons[] = $mform->createElement('submit', 'previous', 'Previous');
         $navbuttons[] = $mform->createElement('submit', 'next', 'Next');
         $mform->addGroup($navbuttons);
-        $this->add_action_buttons();
+        $this->add_action_buttons(true, 'Save');
     }
-
 
 }
 
-$mform = new gapfill_theme_edit_form(new moodle_url('/question/type/gapfill/theme_edit.php/'));
+$mform = new gapfill_theme_edit_form(new moodle_url('/question/type/gapfill/admin/theme_edit.php/'));
 $message = '';
+global $DB;
+
 if ($data = $mform->get_data()) {
     if (isset($data->Next)) {
         $message = 'Next';
@@ -79,13 +83,14 @@ if ($data = $mform->get_data()) {
     if (isset($data->Previous)) {
         $message = 'Previous';
     }
+    if (isset($data->Save)) {
+        $themecode = $data->themecode;
+        $DB->insert_record('question_gapfill_theme', ['name' => $name, 'themecode' => $data->themecode]);
+    }
 
 }
 
 echo $OUTPUT->header();
 $mform->display();
-$OUTPUT->heading('Hello');
-
-
 echo $OUTPUT->footer();
 
