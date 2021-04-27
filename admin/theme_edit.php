@@ -58,6 +58,9 @@ class gapfill_theme_edit_form extends moodleform {
         $themes = get_config('qtype_gapfill', 'themes');
 
         $attributes = [];
+        $mform->addElement('hidden', 'themeid');
+        $mform->setType('themeid', PARAM_RAW);
+
         $mform->addElement('text', 'themename', 'Name');
         $mform->addElement('textarea', 'themecode', get_string('themes', 'qtype_gapfill'), ['rows' => 30, 'cols' => 80]);
 
@@ -83,9 +86,13 @@ if ($data = $mform->get_data()) {
     if (isset($data->Previous)) {
         $message = 'Previous';
     }
-    if (isset($data->Save)) {
-        $themecode = $data->themecode;
-        $DB->insert_record('question_gapfill_theme', ['name' => $name, 'themecode' => $data->themecode]);
+    if (isset($data->submitbutton)) {
+        $params = [
+            'name' => $data->themename,
+            'themecode' => $data->themecode
+        ];
+        $themename = $data->themename;
+        $DB->insert_record('question_gapfill_theme', $params);
     }
 
 }
