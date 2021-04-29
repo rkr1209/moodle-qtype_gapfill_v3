@@ -27,6 +27,7 @@ require_once('../../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 admin_externalpage_setup('qtype_gapfill_theme_edit');
+$id = optional_param('id', '', PARAM_INT);
 
 /**
  *  Edit gapfill question type themes
@@ -51,6 +52,7 @@ class gapfill_theme_edit_form extends moodleform {
      */
     protected function definition() {
         global $PAGE;
+        $id = $this->_customdata['id'];
         $mform = $this->_form;
         $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/lib/codemirror.css');
         $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/addon/hint/show-hint.css');
@@ -75,7 +77,7 @@ class gapfill_theme_edit_form extends moodleform {
 
 }
 
-$mform = new gapfill_theme_edit_form(new moodle_url('/question/type/gapfill/admin/theme_edit.php/'));
+$mform = new gapfill_theme_edit_form(new moodle_url('/question/type/gapfill/admin/theme_edit.php/'), ['id' => $id]);
 $message = '';
 global $DB;
 
