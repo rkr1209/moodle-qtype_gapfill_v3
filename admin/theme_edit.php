@@ -25,9 +25,19 @@
  */
 require_once('../../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->libdir.'/formslib.php');
 
-admin_externalpage_setup('qtype_gapfill_theme_edit');
+//admin_externalpage_setup('qtype_gapfill_theme_edit');
+$previous = optional_param('previous', '', PARAM_TEXT);
+$next = optional_param('next', '', PARAM_TEXT);
 $id = optional_param('id', '', PARAM_INT);
+// //$PAGE->set_url(new moodle_url('/'));
+global $PAGE;
+$PAGE->set_context(context_system::instance());
+$url = new moodle_url('/course/report/completion/index.php', ['course' => 'popo']);
+$PAGE->set_url($url);
+
+
 
 /**
  *  Edit gapfill question type themes
@@ -51,8 +61,10 @@ class gapfill_theme_edit_form extends moodleform {
      * mini form for entering the import details
      */
     protected function definition() {
-        global $PAGE;
+        global $PAGE, $DB;
         $id = $this->_customdata['id'];
+
+        $record = $DB->get_record('question_gapfill_theme', ['id' => $id]);
         $mform = $this->_form;
         $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/lib/codemirror.css');
         $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/addon/hint/show-hint.css');
@@ -60,46 +72,88 @@ class gapfill_theme_edit_form extends moodleform {
         $themes = get_config('qtype_gapfill', 'themes');
 
         $attributes = [];
-        $mform->addElement('hidden', 'themeid');
-        $mform->setType('themeid', PARAM_RAW);
+        $mform->addElement('text', 'id');
+        $mform->setType('id', PARAM_INT);
+        $mform->setDefault('id', $record->id);
 
-        $mform->addElement('text', 'themename', 'Name');
+        $mform->addElement('text', 'name', 'Name');
+        $mform->setType('name', PARAM_TEXT);
+        $mform->setDefault('name', $record->name);
+
         $mform->addElement('textarea', 'themecode', get_string('themes', 'qtype_gapfill'), ['rows' => 30, 'cols' => 80]);
 
-        $mform->setDefault('themecode', $themes);
+        $mform->setDefault('themecode', $record->themecode);
         $mform->setType('theme', PARAM_RAW);
+        $this->add_action_buttons(true, 'Save');
+
         $navbuttons = [];
         $navbuttons[] = $mform->createElement('submit', 'previous', 'Previous');
         $navbuttons[] = $mform->createElement('submit', 'next', 'Next');
         $mform->addGroup($navbuttons);
-        $this->add_action_buttons(true, 'Save');
+        $this->definition_after_data();
     }
 
 }
+if ($id == '') {
+    $sql = 'select min(id) id from {question_gapfill_theme}';
+    $record = $DB->get_record_sql($sql);
+    $id = $record->id;
+}
 
-$mform = new gapfill_theme_edit_form(new moodle_url('/question/type/gapfill/admin/theme_edit.php/'), ['id' => $id]);
+if ($next > "") {
+        $sql = 'SELECT * FROM {question_gapfill_theme}
+        WHERE id >:id
+        ORDER BY id';
+        $record = $DB->get_record_sql($sql, ['id' => $id], IGNORE_MULTIPLE);
+        $id = $record->id;
+}
+if ($previous > "") {
+    $sql = 'SELECT * FROM {question_gapfill_theme}
+    WHERE id < :id
+    ORDER BY id';
+    if($record = $DB->get_record_sql($sql, ['id' => $id], IGNORE_MULTIPLE)){
+        $id = $record->id;
+    }
+}
+
+
+$url = new moodle_url('/question/type/gapfill/admin/theme_edit.php', ['id' => $id]);
+$mform = new gapfill_theme_edit_form($url, ['id' => $id]);
+
 $message = '';
 global $DB;
 
+// if ($data = $mform->get_data()) {
+//     if (isset($data->next)) {
+//         $sql = 'SELECT * FROM {question_gapfill_theme}
+//         WHERE id >:id
+//         ORDER BY id';
+//         $record = $DB->get_records_sql($sql, ['id' => $id], IGNORE_MULTIPLE);
+//     }
+//     if (isset($data->Previous)) {
+//         $message = 'Previous';
+//     }
+//     if (isset($data->submitbutton)) {
+//         if ($id) {
+//             $record = $DB->get_record('question_gapfill_theme', ['id' => $id]);
+//             $params = [
+//                 'id'   => $id,
+//                 'name' => $data->themename,
+//                 'themecode' => $data->themecode
+//             ];
+//             $DB->update_record('question_gapfill_theme', $params);
+//         }
+//     }
+
+// }
+
+
 if ($data = $mform->get_data()) {
-    if (isset($data->Next)) {
-        $message = 'Next';
+    if (isset($data->next) || isset($data->previous)) {
+        $url->param('id', $id);
+        redirect($url);
     }
-    if (isset($data->Previous)) {
-        $message = 'Previous';
-    }
-    if (isset($data->submitbutton)) {
-        $params = [
-            'name' => $data->themename,
-            'themecode' => $data->themecode
-        ];
-        $themename = $data->themename;
-        $DB->insert_record('question_gapfill_theme', $params);
-    }
-
 }
-
 echo $OUTPUT->header();
 $mform->display();
 echo $OUTPUT->footer();
-
