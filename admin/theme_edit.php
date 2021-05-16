@@ -38,7 +38,6 @@ $url = new moodle_url('/course/report/completion/index.php', ['course' => 'popo'
 $PAGE->set_url($url);
 
 
-
 /**
  *  Edit gapfill question type themes
  *
@@ -96,8 +95,12 @@ class gapfill_theme_edit_form extends moodleform {
 }
 if ($id == '') {
     $sql = 'select min(id) id from {question_gapfill_theme}';
-    $record = $DB->get_record_sql($sql);
-    $id = $record->id;
+    $record = $DB->get_field_sql($sql);
+    if ($record) {
+        $id = $record;
+    } else {
+        $id = $DB->insert_record('question_gapfill_theme', (object) ['name' => '', 'themecode' => '']);
+    }
 }
 
 if ($next > "") {
@@ -111,7 +114,7 @@ if ($previous > "") {
     $sql = 'SELECT * FROM {question_gapfill_theme}
     WHERE id < :id
     ORDER BY id';
-    if($record = $DB->get_record_sql($sql, ['id' => $id], IGNORE_MULTIPLE)){
+    if ($record = $DB->get_record_sql($sql, ['id' => $id], IGNORE_MULTIPLE)) {
         $id = $record->id;
     }
 }
@@ -123,7 +126,7 @@ $mform = new gapfill_theme_edit_form($url, ['id' => $id]);
 $message = '';
 global $DB;
 
-// if ($data = $mform->get_data()) {
+if ($data = $mform->get_data()) {
 //     if (isset($data->next)) {
 //         $sql = 'SELECT * FROM {question_gapfill_theme}
 //         WHERE id >:id
@@ -133,19 +136,19 @@ global $DB;
 //     if (isset($data->Previous)) {
 //         $message = 'Previous';
 //     }
-//     if (isset($data->submitbutton)) {
-//         if ($id) {
-//             $record = $DB->get_record('question_gapfill_theme', ['id' => $id]);
-//             $params = [
-//                 'id'   => $id,
-//                 'name' => $data->themename,
-//                 'themecode' => $data->themecode
-//             ];
-//             $DB->update_record('question_gapfill_theme', $params);
-//         }
-//     }
+    if (isset($data->submitbutton)) {
+        if ($id) {
+            $record = $DB->get_record('question_gapfill_theme', ['id' => $id]);
+            $params = [
+                'id'   => $id,
+                'name' => $data->themename,
+                'themecode' => $data->themecode
+            ];
+            $DB->update_record('question_gapfill_theme', $params);
+        }
+    }
 
-// }
+ }
 
 
 if ($data = $mform->get_data()) {
