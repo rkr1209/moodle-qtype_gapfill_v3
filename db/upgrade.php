@@ -102,8 +102,26 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
             $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
             $dbman->create_table($table);
         }
+    }
+    if ($oldversion < 2021073105) {
+        if (!$dbman->table_exists('question_gapfill_theme')) {
+
+            // Define table question_gapfill_theme to be created.
+            $table = new xmldb_table('question_gapfill_theme');
+
+            // Adding fields to table question_gapfill_theme.
+            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+            $table->add_field('name', XMLDB_TYPE_CHAR, '50', null, null, null, null);
+            $table->add_field('themecode', XMLDB_TYPE_TEXT, null, null, null, null, null);
+
+            // Adding keys to table question_gapfill_theme.
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
+            $dbman->create_table($table);
+        }
         // Gapfill savepoint reached.
-        upgrade_plugin_savepoint(true, 2021041802, 'qtype', 'gapfill');
+        upgrade_plugin_savepoint(true, 2021073105, 'qtype', 'gapfill');
+
     }
     return true;
 }
