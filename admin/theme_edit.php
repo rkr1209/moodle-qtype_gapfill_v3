@@ -68,7 +68,9 @@ class gapfill_theme_edit_form extends moodleform {
         $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/lib/codemirror.css');
         $PAGE->requires->css('/question/type/gapfill/amd/src/codemirror/addon/hint/show-hint.css');
         $PAGE->requires->js_call_amd('qtype_gapfill/theme_edit', 'init');
-        $themes = get_config('qtype_gapfill', 'themes');
+
+
+        //$themes = get_config('qtype_gapfill', 'themes');
 
         $attributes = [];
         $mform->addElement('text', 'id');
@@ -80,9 +82,12 @@ class gapfill_theme_edit_form extends moodleform {
         $mform->setDefault('name', $record->name);
 
         $mform->addElement('textarea', 'themecode', get_string('themes', 'qtype_gapfill'), ['rows' => 30, 'cols' => 80]);
-
-        $mform->setDefault('themecode', $record->themecode);
-        $mform->setType('theme', PARAM_RAW);
+        $codedefault = '
+.que.gapfill .formulation{
+        border-radius:10px;
+}';
+        $mform->setDefault('themecode', $codedefault);
+        $mform->setType('themecode', PARAM_RAW);
         $this->add_action_buttons(true, 'Save');
 
         $navbuttons = [];

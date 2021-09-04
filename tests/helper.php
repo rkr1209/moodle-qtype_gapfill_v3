@@ -234,6 +234,7 @@ class qtype_gapfill_test_helper extends question_test_helper {
         return $question;
     }
 
+
     /**
      * Gets the question data for a shortanswer question with just the correct
      * answer 'frog', and no other answer matching.

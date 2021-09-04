@@ -30,6 +30,8 @@ require_once($CFG->dirroot . '/question/engine/tests/helpers.php');
 require_once($CFG->dirroot . '/question/type/gapfill/tests/helper.php');
 
 require_once($CFG->dirroot . '/question/type/gapfill/question.php');
+require_once($CFG->dirroot . '/question/type/gapfill/db/install.php');
+
 /**
  * Unit tests for the gapfill question definition class.
  *
@@ -41,6 +43,9 @@ class question_test extends advanced_testcase {
         $question = qtype_gapfill_test_helper::make_question();
         $expecteddata = array('p1' => 'raw_trimmed', 'p2' => 'raw_trimmed');
         $this->assertEquals($question->get_expected_data(), $expecteddata);
+    }
+    public function test_iinstall() {
+        xmldb_qtype_gapfill_install();
     }
 
     public function test_get_size() {

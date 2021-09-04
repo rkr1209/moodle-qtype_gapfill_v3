@@ -21,17 +21,15 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 import CodeMirror from 'qtype_gapfill/codemirror/lib/codemirror';
-import  'qtype_gapfill/codemirror/addon/hint/show-hint';
-import  'qtype_gapfill/codemirror/addon/hint/css-hint';
-import  'qtype_gapfill/codemirror/mode/css/css';
-// import  'qtype_gapfill/codemirror/mode/javascript/javascript';
-// import  'qtype_gapfill/codemirror/mode/xml/xml';
+import 'qtype_gapfill/codemirror/addon/hint/show-hint';
+import 'qtype_gapfill/codemirror/addon/hint/css-hint';
+import 'qtype_gapfill/codemirror/mode/css/css';
 
 export const init = () => {
     var editor = CodeMirror.fromTextArea(document.getElementById("id_themecode"), {
         lineNumbers: true,
         extraKeys: {"Ctrl-Space": "autocomplete"}
           });
-    editor.setSize('100%', 400);
+   editor.setSize('100%', 400);
 
 };
