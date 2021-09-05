@@ -72,7 +72,6 @@ class gapfill_theme_edit_form extends moodleform {
 
         //$themes = get_config('qtype_gapfill', 'themes');
 
-        $attributes = [];
         $mform->addElement('text', 'id');
         $mform->setType('id', PARAM_INT);
         $mform->setDefault('id', $record->id);
@@ -82,11 +81,8 @@ class gapfill_theme_edit_form extends moodleform {
         $mform->setDefault('name', $record->name);
 
         $mform->addElement('textarea', 'themecode', get_string('themes', 'qtype_gapfill'), ['rows' => 30, 'cols' => 80]);
-        $codedefault = '
-.que.gapfill .formulation{
-        border-radius:10px;
-}';
-        $mform->setDefault('themecode', $codedefault);
+
+        $mform->setDefault('themecode', $record->themecode);
         $mform->setType('themecode', PARAM_RAW);
         $this->add_action_buttons(true, 'Save');
 

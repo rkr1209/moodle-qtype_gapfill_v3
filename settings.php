@@ -34,10 +34,6 @@ if (is_siteadmin()) {
     $settingspage = new admin_settingpage('gfsettings' , get_string('settings'));
 
     $ADMIN->add('qtype_gapfill_category', $settingspage);
-    $settingspage->add(new admin_setting_configtextarea('qtype_gapfill/themes',
-        get_string('themes', 'qtype_gapfill'),
-        get_string('themes_text', 'qtype_gapfill'),
-        file_get_contents(__DIR__."/themes.xml") , PARAM_RAW, 20, 40));
     $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/disableregex',
         get_string('disableregex', 'qtype_gapfill'),
         get_string('disableregexset_text', 'qtype_gapfill'), 1));
@@ -59,6 +55,9 @@ if (is_siteadmin()) {
     $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/addhinttext',
         get_string('addhinttext', 'qtype_gapfill'),
         get_string('addhinttext_text', 'qtype_gapfill') , 0));
+    $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill/enablethemes',
+        get_string('enablethemes', 'qtype_gapfill'),
+        get_string('enablethemes_help', 'qtype_gapfill') , 0));
     $settingspage->add(new admin_setting_configtextarea('qtype_gapfill/delimitchars',
          get_string('delimitchars', 'qtype_gapfill'),
          get_string('delimitset_text', 'qtype_gapfill'),

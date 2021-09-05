@@ -239,6 +239,10 @@ class qtype_gapfill_question extends question_graded_automatically_with_countbac
         }
         return $data;
     }
+    public function get_theme_code() {
+        global $DB;
+        return $DB->get_field('question_gapfill_theme', 'themecode', [ 'id'  => $this->theme]);
+    }
 
     /**
      * Value returned will be written to responsesummary field of

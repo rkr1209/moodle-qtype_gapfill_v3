@@ -78,7 +78,8 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
         if ($question->answerdisplay == "dragdrop") {
             $answeroptions = $this->setup_answeroptions($qa);
         }
-        $questiontext = '';
+        $questiontext = $question->get_theme_code();
+
         $markedgaps = $question->get_markedgaps($qa, $options);
 
         foreach ($question->textfragments as $place => $fragment) {
@@ -440,20 +441,6 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
                 $a->gaporgaps = get_string('gap_singular', 'qtype_gapfill');
             }
             return get_string('yougotnrightcount', 'qtype_gapfill', $a);
-        }
-    }
-
-    private function get_theme($themename) {
-        $themes = get_config('qtype_gapfill', 'themes');
-        $xml = simplexml_load_string($themes);
-        if ($xml && $themename) {
-            $theme = $xml->xpath("//*[@name='$themename']");
-            $css = $theme[0]->style->saveXML();
-            //$css .="<div class='mobiletheme'><style> .droptarget { font-size:3em;}</style></div>";.
-            $script = $theme[0]->script->savexML();
-            return($css .$script);
-        } else {
-            return '';
         }
     }
 

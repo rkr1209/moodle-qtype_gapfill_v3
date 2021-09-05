@@ -88,23 +88,22 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2020091100, 'qtype', 'gapfill');
 
     }
-    if ($oldversion < 2021041802) {
-        if (!$dbman->field_exists('question_gapfill', 'theme')) {
-            $table = new xmldb_table('question_gapfill');
-            $field = new xmldb_field('theme', XMLDB_TYPE_TEXT, null, null, null, null, null, 'singleuse');
-            $dbman->add_field($table, $field);
-        }
+
+    if ($oldversion < 2021080500) {
         if (!$dbman->table_exists('question_gapfill_theme')) {
-            $table = new xmldb_table('question_gapfill_theme');
-            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-            $table->add_field('name', XMLDB_TYPE_TEXT, null, null, null, null, null, 'id');
-            $table->add_field('theme', XMLDB_TYPE_TEXT, null, null, null, null, null, 'name');
-            $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
-            $dbman->create_table($table);
-        }
-    }
-    if ($oldversion < 2021073105) {
-        if (!$dbman->table_exists('question_gapfill_theme')) {
+            if (!$dbman->field_exists('question_gapfill', 'theme')) {
+                $table = new xmldb_table('question_gapfill');
+                $field = new xmldb_field('theme', XMLDB_TYPE_TEXT, null, null, null, null, null, 'singleuse');
+                $dbman->add_field($table, $field);
+            }
+            if (!$dbman->table_exists('question_gapfill_theme')) {
+                $table = new xmldb_table('question_gapfill_theme');
+                $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+                $table->add_field('name', XMLDB_TYPE_TEXT, null, null, null, null, null, 'id');
+                $table->add_field('theme', XMLDB_TYPE_TEXT, null, null, null, null, null, 'name');
+                $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+                $dbman->create_table($table);
+            }
 
             // Define table question_gapfill_theme to be created.
             $table = new xmldb_table('question_gapfill_theme');
@@ -120,7 +119,7 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
             $dbman->create_table($table);
         }
         // Gapfill savepoint reached.
-        upgrade_plugin_savepoint(true, 2021073105, 'qtype', 'gapfill');
+        upgrade_plugin_savepoint(true, 2021080500, 'qtype', 'gapfill');
 
     }
     return true;

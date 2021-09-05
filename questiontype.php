@@ -278,7 +278,7 @@ class qtype_gapfill extends question_type {
         $options->fixedgapsize = $question->fixedgapsize;
         $options->optionsaftertext = $question->optionsaftertext;
         $options->letterhints = $question->letterhints;
-        $options->theme = $question->theme;
+        $options->theme = (int) $question->theme;
         $options->singleuse = $question->singleuse;
 
         $options = $this->save_combined_feedback_helper($options, $question, $context, true);

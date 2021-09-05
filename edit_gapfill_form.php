@@ -58,7 +58,7 @@ class qtype_gapfill_edit_form extends question_edit_form {
      * @param object $mform the form being built.
      */
     protected function definition_inner($mform) {
-        global $PAGE;
+        global $PAGE, $DB;
         $PAGE->requires->jquery();
         $PAGE->requires->jquery_plugin('ui');
         $PAGE->requires->jquery_plugin('ui-css');
@@ -146,17 +146,14 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->addElement('select', 'answerdisplay', get_string('answerdisplay', 'qtype_gapfill'), $answerdisplaytypes);
         $mform->addHelpButton('answerdisplay', 'answerdisplay', 'qtype_gapfill');
 
-        $settings = get_config('qtype_gapfill','themes');
-        $themes[''] = 'No Selection';
-        if($xml=@simplexml_load_string($settings)){
-            $elements = $xml->xpath('//theme');
-            foreach($elements as $theme){
-              $themes[(string) $theme->attributes()->name] = (string) $theme->attributes()->name;
+        if (get_config('qtype_gapfill', 'enablethemes')) {
+            $themerecords = $DB->get_records('question_gapfill_theme');
+            foreach ($themerecords as $theme) {
+                $themes[(string) $theme->id] = (string) $theme->name;
             }
+            $mform->addElement('select', 'theme',  get_string('theme', 'qtype_gapfill'), $themes);
+            $mform->addHelpButton('theme', 'theme', 'qtype_gapfill');
         }
-
-        $mform->addElement('select', 'theme',get_string('theme', 'qtype_gapfill'), $themes);
-        $mform->addHelpButton('theme', 'theme', 'qtype_gapfill');
 
         // Sets all gaps to the size of the largest gap, avoids giving clues to the correct answer.
         $mform->addElement('advcheckbox', 'fixedgapsize', get_string('fixedgapsize', 'qtype_gapfill'));

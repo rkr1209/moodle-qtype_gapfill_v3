@@ -120,3 +120,5 @@ $string['theme_help'] = 'Change how questions are rendered';
 $string['themes'] = 'Themes (Ctrl-Space for hints)';
 $string['themes_text'] = 'XML containing CSS that can be used for format how questions are rendered';
 $string['theme_edit'] = 'Theme edit';
+$string['enablethemes'] = 'Enable themes';
+$string['enablethemes_help'] = 'Styling (themes) for gapfill questions';
