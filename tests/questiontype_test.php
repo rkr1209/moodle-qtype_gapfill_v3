@@ -131,7 +131,7 @@ class questiontype_test extends advanced_testcase {
 
     public function test_extra_question_fields() {
         $extraquestionfields = array('question_gapfill_v3', 'answerdisplay', 'delimitchars',
-            'casesensitive', 'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'singleuse');
+            'casesensitive', 'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'manualgrading', 'letterhints', 'singleuse');
         $this->assertEquals($this->qtype->extra_question_fields(), $extraquestionfields);
     }
 }
