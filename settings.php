@@ -48,6 +48,9 @@ if (is_siteadmin()) {
     $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill_v3/optionsaftertext',
         get_string('optionsaftertext', 'qtype_gapfill_v3'),
         get_string('optionsaftertext_text', 'qtype_gapfill_v3') , 0));
+    $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill_v3/manualgrading',
+        get_string('manualgrading', 'qtype_gapfill_v3'),
+        get_string('manualgrading_text', 'qtype_gapfill_v3') , 0));
     $settingspage->add(new admin_setting_configcheckbox('qtype_gapfill_v3/letterhints',
         get_string('letterhints', 'qtype_gapfill_v3'),
         get_string('letterhints_text', 'qtype_gapfill_v3') , 0));
