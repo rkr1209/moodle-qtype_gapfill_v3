@@ -37,7 +37,7 @@ $string['delimitchars'] = 'Delimit characters';
 $string['pluginnameediting'] = 'Editing Gap Fill.';
 $string['pluginnameadding'] = 'Adding a Gap Fill Question.';
 
-$string['gapfill'] = 'Gapfill.';
+$string['gapfill'] = 'Gapfill v3.';
 $string['itemsettings_button'] = 'Item settings';
 $string['itemsettings_button_help'] = 'Clicking this toggles settings mode for entering per-gap settings such as feedback for correct or incorrect responses. Click on a delimited gap word to popup the settings form';
 
@@ -45,7 +45,7 @@ $string['displaygapfill'] = 'gapfill';
 $string['displaydropdown'] = 'dropdown';
 $string['displaydragdrop'] = 'dragdrop';
 
-$string['pluginname'] = 'Gapfill';
+$string['pluginname'] = 'Gapfill v3';
 $string['pluginname_help'] = 'Place the words to be completed within square brackets e.g. The [cat] sat on the [mat].  If mat or rug are acceptable use [mat|rug]. Dropdown and Dragdrop modes allows for a shuffled list of answers to be displayed which can include optional wrong/distractor answers.';
 
 $string['pluginname_link'] = 'question/type/gapfill';
@@ -109,4 +109,4 @@ $string['distractor1'] = 'blue,shoe,small';
 $string['example2'] = 'Select the verbs from the dropdowns. He [laughed] and [sat] down';
 $string['distractor2'] = 'blue,shoe,small';
 $string['example3'] = 'Where does the kangaroo come from? [Australia]. The next gap will acceps either cat or dog [cat|dog]';
-$string['privacy:null_reason'] = 'The Gapfill question type does not effect or store any data itself.';
+$string['privacy:null_reason'] = 'The Gapfill v3 question type does not effect or store any data itself.';
