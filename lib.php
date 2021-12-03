@@ -18,7 +18,7 @@
  * Serve question type files
  *
  * @since      3.5
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  Marcus Green 2018
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Checks file access for gapfill  questions.
- * @package  qtype_gapfill
+ * @package  qtype_gapfill_v3
  * @category files
  * @param stdClass $course course object
  * @param stdClass $cm course module object
@@ -37,8 +37,8 @@ defined('MOODLE_INTERNAL') || die();
  * @param array $options additional options affecting the file serving
  *
  */
-function qtype_gapfill_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
+function qtype_gapfill_v3_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     global $CFG;
     require_once($CFG->libdir . '/questionlib.php');
-    question_pluginfile($course, $context, 'qtype_gapfill', $filearea, $args, $forcedownload, $options);
+    question_pluginfile($course, $context, 'qtype_gapfill_v3', $filearea, $args, $forcedownload, $options);
 }

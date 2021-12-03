@@ -17,7 +17,7 @@
 /**
  * Unit tests for the gapfill question type class.
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2012 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,8 +25,8 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot . '/question/type/gapfill/questiontype.php');
-require_once($CFG->dirroot . '/question/type/gapfill/tests/helper.php');
+require_once($CFG->dirroot . '/question/type/gapfill_v3/questiontype.php');
+require_once($CFG->dirroot . '/question/type/gapfill_v3/tests/helper.php');
 
 
 /**
@@ -43,11 +43,11 @@ class questiontype_test extends advanced_testcase {
      */
     protected static $includecoverage = array(
         'question/type/questiontypebase.php',
-        'question/type/gapfill/questiontype.php',
+        'question/type/gapfill_v3/questiontype.php',
     );
 
     protected function setUp(): void {
-        $this->qtype = new qtype_gapfill();
+        $this->qtype = new qtype_gapfill_v3();
     }
 
     protected function tearDown(): void {
@@ -106,7 +106,7 @@ class questiontype_test extends advanced_testcase {
         $this->assertEquals($DB->get_field('question', 'questiontext', ['id' => $question->id]), $question->questiontext);
 
         $this->qtype->save_question_options($fromform);
-        $this->assertEquals($DB->get_field('question_gapfill', 'correctfeedback', ['question' => $question->id]),
+        $this->assertEquals($DB->get_field('question_gapfill_v3', 'correctfeedback', ['question' => $question->id]),
          $fromform->correctfeedback['text']);
 
         $gaps = $this->qtype->get_gaps("[]", $question->questiontext);
@@ -130,7 +130,7 @@ class questiontype_test extends advanced_testcase {
     }
 
     public function test_extra_question_fields() {
-        $extraquestionfields = array('question_gapfill', 'answerdisplay', 'delimitchars',
+        $extraquestionfields = array('question_gapfill_v3', 'answerdisplay', 'delimitchars',
             'casesensitive', 'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'singleuse');
         $this->assertEquals($this->qtype->extra_question_fields(), $extraquestionfields);
     }

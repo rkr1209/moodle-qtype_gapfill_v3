@@ -17,7 +17,7 @@
 /**
  * Generates the output for gapfill questions
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2019 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2019 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
+class qtype_gapfill_v3_renderer extends qtype_with_combined_feedback_renderer {
 
     /**
      * responses that would be correct if submitted
@@ -143,11 +143,11 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
      * Set divs that are inspected by the mobile app
      * for settings
      *
-     * @param qtype_gapfill_question $question
+     * @param qtype_gapfill_v3_question $question
      * @param  string $questiontext
      * @return string
      */
-    public function app_connect(qtype_gapfill_question $question, string $questiontext) : string {
+    public function app_connect(qtype_gapfill_v3_question $question, string $questiontext) : string {
         if ($question->optionsaftertext == true) {
             $questiontext .= "<div id='gapfill_optionsaftertext'></div>";
         }
@@ -268,16 +268,16 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
         $aftergaptext = "";
         if (($fraction == 0) && ($rightanswer != "") && ($rightanswer != ".+")) {
             /* replace | operator with the word or */
-            $rightanswerdisplay = preg_replace("/\|/", " ".get_string("or", "qtype_gapfill")." ", $rightanswer);
+            $rightanswerdisplay = preg_replace("/\|/", " ".get_string("or", "qtype_gapfill_v3")." ", $rightanswer);
             /* replace !! with the 'blank' */
-            $rightanswerdisplay = preg_replace("/\!!/", get_string("blank", "qtype_gapfill"), $rightanswerdisplay);
+            $rightanswerdisplay = preg_replace("/\!!/", get_string("blank", "qtype_gapfill_v3"), $rightanswerdisplay);
             $question = $qa->get_question();
-            $delim = qtype_gapfill::get_delimit_array($question->delimitchars);
+            $delim = qtype_gapfill_v3::get_delimit_array($question->delimitchars);
             /* set background to red and image to cross if fraction is 0 (an incorrect response
              * was given */
             $aftergaptext = $this->feedback_image($fraction);
             $aftergaptext .= "<span class='aftergapfeedback' title='" .
-            get_string("correctanswer", "qtype_gapfill") . "'>" . $delim["l"] .
+            get_string("correctanswer", "qtype_gapfill_v3") . "'>" . $delim["l"] .
                 $rightanswerdisplay . $delim["r"] . "</span>";
             $aftergaptext .= " <span class='gapfeedbackincorrect' title='feedback' >"
             . $this->get_feedback($itemsettings, false) . "</span>";
@@ -400,7 +400,7 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
         }
         $arrunique = array_unique($this->correctresponses);
         if (count($arrunique) != count($this->correctresponses)) {
-            return get_string('duplicatepartialcredit', 'qtype_gapfill');
+            return get_string('duplicatepartialcredit', 'qtype_gapfill_v3');
         }
     }
 
@@ -435,11 +435,11 @@ class qtype_gapfill_renderer extends qtype_with_combined_feedback_renderer {
             return '';
         } else {
             if ($a->num > 1) {
-                $a->gaporgaps = get_string('gap_plural', 'qtype_gapfill');
+                $a->gaporgaps = get_string('gap_plural', 'qtype_gapfill_v3');
             } else {
-                $a->gaporgaps = get_string('gap_singular', 'qtype_gapfill');
+                $a->gaporgaps = get_string('gap_singular', 'qtype_gapfill_v3');
             }
-            return get_string('yougotnrightcount', 'qtype_gapfill', $a);
+            return get_string('yougotnrightcount', 'qtype_gapfill_v3', $a);
         }
     }
 }

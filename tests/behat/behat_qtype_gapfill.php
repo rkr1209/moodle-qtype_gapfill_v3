@@ -17,7 +17,7 @@
 /**
  * Behat steps definitions for gapfill drag drop into text.
  *
- * @package   qtype_gapfill
+ * @package   qtype_gapfill_v3
  * @category  test
  * @copyright 2016 Marcus Green
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -32,7 +32,7 @@ require_once(__DIR__ . '/../../../../../lib/behat/behat_base.php');
  * @copyright 2016 Marcus Green
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class behat_qtype_gapfill extends behat_base {
+class behat_qtype_gapfill_v3 extends behat_base {
 
     /**
      * Get the xpath for a given gap

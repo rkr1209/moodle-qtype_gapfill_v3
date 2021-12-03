@@ -16,15 +16,15 @@
 /**
  * Privacy class for Moodle Gapfill question type.
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  Marcus Green 2018
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace qtype_gapfill\privacy;
+namespace qtype_gapfill_v3\privacy;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Privacy Subsystem for qtype_gapfill implementing null_provider.
+ * Privacy Subsystem for qtype_gapfill_v3 implementing null_provider.
  *
  * @copyright  2021 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

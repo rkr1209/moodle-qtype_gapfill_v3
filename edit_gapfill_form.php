@@ -16,7 +16,7 @@
 
 /**
  * The editing form code for this question type.
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2017 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ require_once($CFG->dirroot . '/question/type/edit_question_form.php');
  * See http://docs.moodle.org/en/Development:lib/formslib.php for information
  * about the Moodle forms library, which is based on the HTML Quickform PEAR library.
  */
-class qtype_gapfill_edit_form extends question_edit_form {
+class qtype_gapfill_v3_edit_form extends question_edit_form {
 
     /**
      * Doesn't seem to be used
@@ -64,8 +64,8 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $PAGE->requires->jquery_plugin('ui-css');
 
         $PAGE->requires->strings_for_js(array('itemsettingserror', 'editquestiontext', 'additemsettings',
-            'correct', 'incorrect'), 'qtype_gapfill');
-        $PAGE->requires->js_call_amd('qtype_gapfill/questionedit', 'init');
+            'correct', 'incorrect'), 'qtype_gapfill_v3');
+        $PAGE->requires->js_call_amd('qtype_gapfill_v3/questionedit', 'init');
 
         $mform->addElement('hidden', 'reload', 1);
         $mform->setType('reload', PARAM_RAW);
@@ -76,11 +76,11 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->setType('itemsettings', PARAM_RAW);
 
         /* popup for entering feedback for individual words */
-        $mform->addElement('html', '<div id="id_itemsettings_popup" title="' . get_string('additemsettings', 'qtype_gapfill')
+        $mform->addElement('html', '<div id="id_itemsettings_popup" title="' . get_string('additemsettings', 'qtype_gapfill_v3')
                 . '" style="display:none;background-color:lightgrey" >');
-        $mform->addElement('editor', 'correct', get_string('correct', 'qtype_gapfill'),
+        $mform->addElement('editor', 'correct', get_string('correct', 'qtype_gapfill_v3'),
          array('size' => 70, 'rows' => 4),  ['autosave' => false]);
-        $mform->addElement('editor', 'incorrect', get_string('incorrect', 'qtype_gapfill'),
+        $mform->addElement('editor', 'incorrect', get_string('incorrect', 'qtype_gapfill_v3'),
          array('size' => 70, 'rows' => 4),  ['autosave' => false]);
         $mform->addElement('html', '</div>');
 
@@ -94,19 +94,19 @@ class qtype_gapfill_edit_form extends question_edit_form {
         $mform->addElement('html', '</div>');
 
         $mform->setType('questiontext', PARAM_RAW);
-        $mform->addHelpButton('questiontext', 'questiontext', 'qtype_gapfill');
+        $mform->addHelpButton('questiontext', 'questiontext', 'qtype_gapfill_v3');
 
-        $mform->addElement('button', 'itemsettings_button', get_string('itemsettingsbutton', 'qtype_gapfill'));
-        $mform->addHelpButton('itemsettings_button', 'itemsettings_button', 'qtype_gapfill');
+        $mform->addElement('button', 'itemsettings_button', get_string('itemsettingsbutton', 'qtype_gapfill_v3'));
+        $mform->addHelpButton('itemsettings_button', 'itemsettings_button', 'qtype_gapfill_v3');
 
         $mform->removeelement('generalfeedback');
 
         // Default mark will be set to 1 * number of fields.
         $mform->removeelement('defaultmark');
 
-        $mform->addElement('editor', 'wronganswers', get_string('wronganswers', 'qtype_gapfill'),
+        $mform->addElement('editor', 'wronganswers', get_string('wronganswers', 'qtype_gapfill_v3'),
                 array('size' => 70, 'rows' => 1), $this->editoroptions);
-        $mform->addHelpButton('wronganswers', 'wronganswers', 'qtype_gapfill');
+        $mform->addHelpButton('wronganswers', 'wronganswers', 'qtype_gapfill_v3');
 
         /* Only allow plain text in for the comma delimited set of wrong answer values
          * wrong answers really should be a set of zero marked ordinary answers in the answers
@@ -119,10 +119,10 @@ class qtype_gapfill_edit_form extends question_edit_form {
 
         $mform->setType('generalfeedback', PARAM_RAW);
         $mform->addHelpButton('generalfeedback', 'generalfeedback', 'question');
-        $mform->addElement('header', 'feedbackheader', get_string('moreoptions', 'qtype_gapfill'));
+        $mform->addElement('header', 'feedbackheader', get_string('moreoptions', 'qtype_gapfill_v3'));
 
         // The delimiting characters around fields.
-        $config = get_config('qtype_gapfill');
+        $config = get_config('qtype_gapfill_v3');
         /* turn  config->delimitchars into an array) */
         $delimitchars = explode(",", $config->delimitchars);
         /* copies the values into the keys */
@@ -130,57 +130,57 @@ class qtype_gapfill_edit_form extends question_edit_form {
         /* strip any spaces from keys. This is about backward compatibility with old code
          * and avoiding having to expand the size of the delimitchar column from its current
          * 2. The value in the drop down looks better with a gap between the delimitchars, but
-         * a gap in the key will break the insert into the question_gapfill table
+         * a gap in the key will break the insert into the question_gapfill_v3 table
          */
         foreach ($delimitchars as $key => $value) {
             $key2 = str_replace(' ', '', $key);
             $delimitchars2[$key2] = $value;
         }
-        $mform->addElement('select', 'delimitchars', get_string('delimitchars', 'qtype_gapfill'), $delimitchars2);
-        $mform->addHelpButton('delimitchars', 'delimitchars', 'qtype_gapfill');
+        $mform->addElement('select', 'delimitchars', get_string('delimitchars', 'qtype_gapfill_v3'), $delimitchars2);
+        $mform->addHelpButton('delimitchars', 'delimitchars', 'qtype_gapfill_v3');
 
-        $answerdisplaytypes = array("dragdrop" => get_string('displaydragdrop', 'qtype_gapfill'),
-            "gapfill" => get_string('displaygapfill', 'qtype_gapfill'),
-            "dropdown" => get_string('displaydropdown', 'qtype_gapfill'));
+        $answerdisplaytypes = array("dragdrop" => get_string('displaydragdrop', 'qtype_gapfill_v3'),
+            "gapfill" => get_string('displaygapfill', 'qtype_gapfill_v3'),
+            "dropdown" => get_string('displaydropdown', 'qtype_gapfill_v3'));
 
-        $mform->addElement('select', 'answerdisplay', get_string('answerdisplay', 'qtype_gapfill'), $answerdisplaytypes);
-        $mform->addHelpButton('answerdisplay', 'answerdisplay', 'qtype_gapfill');
+        $mform->addElement('select', 'answerdisplay', get_string('answerdisplay', 'qtype_gapfill_v3'), $answerdisplaytypes);
+        $mform->addHelpButton('answerdisplay', 'answerdisplay', 'qtype_gapfill_v3');
 
         // Sets all gaps to the size of the largest gap, avoids giving clues to the correct answer.
-        $mform->addElement('advcheckbox', 'fixedgapsize', get_string('fixedgapsize', 'qtype_gapfill'));
+        $mform->addElement('advcheckbox', 'fixedgapsize', get_string('fixedgapsize', 'qtype_gapfill_v3'));
         $mform->setDefault('fixedgapsize', $config->fixedgapsize);
-        $mform->addHelpButton('fixedgapsize', 'fixedgapsize', 'qtype_gapfill');
+        $mform->addHelpButton('fixedgapsize', 'fixedgapsize', 'qtype_gapfill_v3');
 
          // Single use (remove draggables from list when dropped in gap).
-         $mform->addElement('advcheckbox', 'singleuse', get_string('singleuse', 'qtype_gapfill'));
-         $mform->addHelpButton('singleuse', 'singleuse', 'qtype_gapfill');
+         $mform->addElement('advcheckbox', 'singleuse', get_string('singleuse', 'qtype_gapfill_v3'));
+         $mform->addHelpButton('singleuse', 'singleuse', 'qtype_gapfill_v3');
          $mform->setDefault('singleuse', $config->singleuse);
 
         // Put draggable answer options after the text. They don't have to be dragged as far, handy on small screens.
-        $mform->addElement('advcheckbox', 'optionsaftertext', get_string('optionsaftertext', 'qtype_gapfill'));
+        $mform->addElement('advcheckbox', 'optionsaftertext', get_string('optionsaftertext', 'qtype_gapfill_v3'));
         $mform->setDefault('optionsaftertext', $config->optionsaftertext);
-        $mform->addHelpButton('optionsaftertext', 'optionsaftertext', 'qtype_gapfill');
+        $mform->addHelpButton('optionsaftertext', 'optionsaftertext', 'qtype_gapfill_v3');
 
         // Use plain string matching instead of regular expressions.
-        $mform->addElement('advcheckbox', 'disableregex', get_string('disableregex', 'qtype_gapfill'));
-        $mform->addHelpButton('disableregex', 'disableregex', 'qtype_gapfill');
+        $mform->addElement('advcheckbox', 'disableregex', get_string('disableregex', 'qtype_gapfill_v3'));
+        $mform->addHelpButton('disableregex', 'disableregex', 'qtype_gapfill_v3');
         $mform->setDefault('disableregex', $config->disableregex);
         $mform->setAdvanced('disableregex');
 
-        $mform->addElement('advcheckbox', 'letterhints', get_string('letterhints', 'qtype_gapfill'));
+        $mform->addElement('advcheckbox', 'letterhints', get_string('letterhints', 'qtype_gapfill_v3'));
         $mform->setDefault('letterhints', $config->letterhints);
-        $mform->addHelpButton('letterhints', 'letterhints', 'qtype_gapfill');
+        $mform->addHelpButton('letterhints', 'letterhints', 'qtype_gapfill_v3');
         $mform->setAdvanced('letterhints');
 
         // Discards duplicates before processing answers, useful for tables with gaps like [cat|dog][cat|dog] .
-        $mform->addElement('advcheckbox', 'noduplicates', get_string('noduplicates', 'qtype_gapfill'));
-        $mform->addHelpButton('noduplicates', 'noduplicates', 'qtype_gapfill');
+        $mform->addElement('advcheckbox', 'noduplicates', get_string('noduplicates', 'qtype_gapfill_v3'));
+        $mform->addHelpButton('noduplicates', 'noduplicates', 'qtype_gapfill_v3');
         $mform->setAdvanced('noduplicates');
 
         /* Makes marking case sensitive so Cat is not the same as cat */
-        $mform->addElement('advcheckbox', 'casesensitive', get_string('casesensitive', 'qtype_gapfill'));
+        $mform->addElement('advcheckbox', 'casesensitive', get_string('casesensitive', 'qtype_gapfill_v3'));
         $mform->setDefault('casesensitive', $config->casesensitive);
-        $mform->addHelpButton('casesensitive', 'casesensitive', 'qtype_gapfill');
+        $mform->addHelpButton('casesensitive', 'casesensitive', 'qtype_gapfill_v3');
         $mform->setAdvanced('casesensitive');
 
         // To add combined feedback (correct, partial and incorrect).
@@ -189,8 +189,8 @@ class qtype_gapfill_edit_form extends question_edit_form {
         // Adds hinting features.
         $this->add_interactive_settings(true, true);
         if ($config->letterhints && $config->addhinttext) {
-            $this->_form->getElement('hint[0]')->setValue(array('text' => get_string('letterhint0', 'qtype_gapfill')));
-            $this->_form->getElement('hint[1]')->setValue(array('text' => get_string('letterhint1', 'qtype_gapfill')));
+            $this->_form->getElement('hint[0]')->setValue(array('text' => get_string('letterhint0', 'qtype_gapfill_v3')));
+            $this->_form->getElement('hint[1]')->setValue(array('text' => get_string('letterhint1', 'qtype_gapfill_v3')));
         }
     }
 
@@ -272,9 +272,9 @@ class qtype_gapfill_edit_form extends question_edit_form {
     public function validation($fromform, $data) {
         $errors = array();
         /* don't save the form if there are no fields defined */
-        $gaps = qtype_gapfill::get_gaps($fromform['delimitchars'], $fromform['questiontext']['text']);
+        $gaps = qtype_gapfill_v3::get_gaps($fromform['delimitchars'], $fromform['questiontext']['text']);
         if (count($gaps) == 0) {
-            $errors['questiontext'] = get_string('questionsmissing', 'qtype_gapfill');
+            $errors['questiontext'] = get_string('questionsmissing', 'qtype_gapfill_v3');
         }
         if ($errors) {
             return $errors;

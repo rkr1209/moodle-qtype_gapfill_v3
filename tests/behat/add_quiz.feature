@@ -1,4 +1,4 @@
-@mod @mod_quiz  @qtype @qtype_gapfill @javascript @gapfill_quiz
+@mod @mod_quiz  @qtype @qtype_gapfill_v3 @javascript @gapfill_quiz
 
 Feature: Add a Gapfill quiz
     In order to evaluate students as a teacher

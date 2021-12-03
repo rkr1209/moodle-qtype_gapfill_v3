@@ -17,7 +17,7 @@
 /**
  * Gapfill question type restoration
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @subpackage backup-moodle2
  * @copyright  2011 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2017 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class restore_qtype_gapfill_plugin extends restore_qtype_plugin {
+class restore_qtype_gapfill_v3_plugin extends restore_qtype_plugin {
 
     /**
      * Returns the paths to be handled by the plugin at question level
@@ -73,14 +73,14 @@ class restore_qtype_gapfill_plugin extends restore_qtype_plugin {
         $newquestionid = $this->get_new_parentid('question');
         $questioncreated = $this->get_mappingid('question_created', $oldquestionid) ? true : false;
 
-        // If the question has been created by restore, we need to create its question_gapfill too.
+        // If the question has been created by restore, we need to create its question_gapfill_v3 too.
         if ($questioncreated) {
             // Adjust value to link back to the questions table.
             $data->question = $newquestionid;
             // Insert record.
-            $newitemid = $DB->insert_record('question_gapfill', $data);
+            $newitemid = $DB->insert_record('question_gapfill_v3', $data);
             // Create mapping (needed for decoding links).
-            $this->set_mapping('question_gapfill', $oldid, $newitemid);
+            $this->set_mapping('question_gapfill_v3', $oldid, $newitemid);
         }
     }
 
@@ -100,14 +100,14 @@ class restore_qtype_gapfill_plugin extends restore_qtype_plugin {
         $newquestionid = $this->get_new_parentid('question');
         $questioncreated = $this->get_mappingid('question_created', $oldquestionid) ? true : false;
 
-        // If the question has been created by restore, we need to create its question_gapfill too.
+        // If the question has been created by restore, we need to create its question_gapfill_v3 too.
         if ($questioncreated) {
             // Adjust value to link back to the questions table.
             $data->question = $newquestionid;
             // Insert record.
-            $newitemid = $DB->insert_record('question_gapfill_settings', $data);
+            $newitemid = $DB->insert_record('question_gapfill_v3_settings', $data);
             // Create mapping (needed for decoding links).
-            $this->set_mapping('question_gapfill_settings', $oldid, $newitemid);
+            $this->set_mapping('question_gapfill_v3_settings', $oldid, $newitemid);
         }
 
     }
@@ -119,7 +119,7 @@ class restore_qtype_gapfill_plugin extends restore_qtype_plugin {
         $contents = array();
 
         $fields = array('correctfeedback', 'partiallycorrectfeedback', 'incorrectfeedback');
-        $contents[] = new restore_decode_content('question_gapfill', $fields, 'question_gapfill');
+        $contents[] = new restore_decode_content('question_gapfill_v3', $fields, 'question_gapfill_v3');
 
         return $contents;
     }

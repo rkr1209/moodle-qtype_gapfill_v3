@@ -19,7 +19,7 @@
  * Import sample Gapfill questions from xml file.
  *
  * This does the same as the standard xml import but easier
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2015 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,7 +29,7 @@ require_once($CFG->libdir . '/xmlize.php');
 require_once($CFG->libdir . '/questionlib.php');
 require_once($CFG->dirroot . '/question/format/xml/format.php');
 
-admin_externalpage_setup('qtype_gapfill_import');
+admin_externalpage_setup('qtype_gapfill_v3_import');
 
 /**
  *  This does the same as the standard xml import but easier
@@ -94,12 +94,12 @@ class gapfill_import_form extends moodleform {
         $this->course = $DB->get_records_sql($sql, array($fromform['courseshortname']));
         $this->course = array_shift($this->course);
         if ($this->course == null) {
-            $errors['courseshortname'] = get_string('coursenotfound', 'qtype_gapfill');
+            $errors['courseshortname'] = get_string('coursenotfound', 'qtype_gapfill_v3');
         } else {
             $this->questioncategory = $this->get_question_category($fromform['courseshortname']);
             if (count($this->questioncategory) == 0) {
                 $url = new moodle_url('/question/edit.php?courseid=' . $this->course->id);
-                $errors['courseshortname'] = get_string('questioncatnotfound', 'qtype_gapfill', $url->out());
+                $errors['courseshortname'] = get_string('questioncatnotfound', 'qtype_gapfill_v3', $url->out());
             }
         }
 
@@ -112,14 +112,14 @@ class gapfill_import_form extends moodleform {
 
 }
 
-$mform = new gapfill_import_form(new moodle_url('/question/type/gapfill/import_examples.php/'));
+$mform = new gapfill_import_form(new moodle_url('/question/type/gapfill_v3/import_examples.php/'));
 if ($fromform = $mform->get_data()) {
     $category = $mform->questioncategory;
     $categorycontext = context::instance_by_id($category->contextid);
     $category->context = $categorycontext;
 
     $qformat = new qformat_xml();
-    $file = $CFG->dirroot . '/question/type/gapfill/examples/'.current_language().'/gapfill_examples.xml';
+    $file = $CFG->dirroot . '/question/type/gapfill_v3/examples/'.current_language().'/gapfill_examples.xml';
     $qformat->setFilename($file);
 
     $qformat->setCategory($category);
@@ -134,7 +134,7 @@ if ($fromform = $mform->get_data()) {
     } else {
         /* after the import offer a link to go to the course and view the questions */
         $visitquestions = new moodle_url('/question/edit.php?courseid=' . $mform->course->id);
-        echo $OUTPUT->notification(get_string('visitquestions', 'qtype_gapfill', $visitquestions->out()), 'notifysuccess');
+        echo $OUTPUT->notification(get_string('visitquestions', 'qtype_gapfill_v3', $visitquestions->out()), 'notifysuccess');
         echo $OUTPUT->continue_button(new moodle_url('import_examples.php'));
         echo $OUTPUT->footer();
         return;

@@ -17,7 +17,7 @@
 /**
  * Gapfill question type backup
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @subpackage backup-moodle2
  * @copyright  2017 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2017 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class backup_qtype_gapfill_plugin extends backup_qtype_plugin {
+class backup_qtype_gapfill_v3_plugin extends backup_qtype_plugin {
 
     /**
      * returns the name of the plugin/question type
@@ -77,10 +77,10 @@ class backup_qtype_gapfill_plugin extends backup_qtype_plugin {
         $gapsettings->add_child($gapsetting);
 
         // Set source to populate the data.
-        $gapfill->set_source_table('question_gapfill',
+        $gapfill->set_source_table('question_gapfill_v3',
                 array('question' => backup::VAR_PARENTID));
          // Set source to populate the data.
-        $gapsetting->set_source_table('question_gapfill_settings',
+        $gapsetting->set_source_table('question_gapfill_v3_settings',
                 array('question' => backup::VAR_PARENTID));
 
         // Don't need to annotate ids nor files.

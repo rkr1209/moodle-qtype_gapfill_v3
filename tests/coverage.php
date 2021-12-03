@@ -16,7 +16,7 @@
 
 /**
  * Configuration for the generation of phpunit coverate report
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2021 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -40,7 +40,7 @@ return new class extends phpunit_coverage_info {
      */
     protected $includelistfiles = [
         'questiontype.php',
-        'qtype_gapfill'
+        'qtype_gapfill_v3'
     ];
 
     /**

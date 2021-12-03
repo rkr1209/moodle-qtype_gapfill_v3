@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="question/type/gapfill/db" VERSION="2013070" COMMENT="XMLDB file for Moodle question/type/gapfill"
+<XMLDB PATH="question/type/gapfill_v3/db" VERSION="2013070" COMMENT="XMLDB file for Moodle question/type/gapfill"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="question_gapfill" COMMENT="Options for gapfill questions">
+    <TABLE NAME="question_gapfill_v3" COMMENT="Options for gapfill questions">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="question"/>
         <FIELD NAME="question" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references question.id" PREVIOUS="id" NEXT="answerdisplay"/>
@@ -29,7 +29,7 @@
         <KEY NAME="question" TYPE="foreign" FIELDS="question" REFTABLE="question" REFFIELDS="id" PREVIOUS="primary" />
       </KEYS>
     </TABLE>
-    <TABLE NAME="question_gapfill_settings" COMMENT="per gap settings for the gapfill question type ">
+    <TABLE NAME="question_gapfill_v3_settings" COMMENT="per gap settings for the gapfill question type ">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="question" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>

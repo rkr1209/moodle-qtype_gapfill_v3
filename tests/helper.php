@@ -17,7 +17,7 @@
 /**
  * Contains the helper class for the select missing words question type tests.
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2013 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,11 +27,11 @@ require_once($CFG->dirroot . '/question/engine/tests/helpers.php');
 /**
  * utilities used by the other test classes
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2018 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_gapfill_test_helper extends question_test_helper {
+class qtype_gapfill_v3_test_helper extends question_test_helper {
 
     /**
      *  must be implemented or class made abstract
@@ -144,7 +144,7 @@ class qtype_gapfill_test_helper extends question_test_helper {
      *
      * @param string $questiontext
      * @param array $poptions
-     * @return qtype_gapfill
+     * @return qtype_gapfill_v3
      */
     public static function make_question($questiontext = "The [cat] sat on the [mat]", array $poptions =[]) {
 
@@ -159,7 +159,7 @@ class qtype_gapfill_test_helper extends question_test_helper {
 
         $type = 'gapfill';
         question_bank::load_question_definition_classes($type);
-        $question = new qtype_gapfill_question();
+        $question = new qtype_gapfill_v3_question();
         $question->questiontext = $questiontext;
         test_question_maker::initialise_a_question($question);
 

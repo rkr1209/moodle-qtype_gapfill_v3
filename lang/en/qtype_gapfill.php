@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The language strings for component 'qtype_gapfill', language 'en'
+ * The language strings for component 'qtype_gapfill_v3', language 'en'
  *
  * @copyright &copy; 2012 Marcus Green
  * @author marcusavgreen@gmail.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @package qtype_gapfill
+ * @package qtype_gapfill_v3
  */
 defined('MOODLE_INTERNAL') || die();
 $string['additemsettings'] = 'Add Gap settings';

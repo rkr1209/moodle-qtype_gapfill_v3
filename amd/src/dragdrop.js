@@ -19,7 +19,7 @@
  * @copyright  2020 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['jquery', 'jqueryui', 'qtype_gapfill/jquery.ui.touch-punch-improved'], function($) {
+define(['jquery', 'jqueryui', 'qtype_gapfill_v3/jquery.ui.touch-punch-improved'], function($) {
   return {
     init: function(singleuse) {
       $(".droptarget").on('dblclick', function() {

@@ -29,7 +29,7 @@ $addons = [
             'gapfill' => [ // Handler unique name (can be anything).
                 'displaydata' => [
                     'title' => 'Gapfill question',
-                    'icon' => '/question/type/gapfill/pix/icon.gif',
+                    'icon' => '/question/type/gapfill_v3/pix/icon.gif',
                     'class' => '',
                 ],
                 'delegate' => 'CoreQuestionDelegate', // Delegate (where to display the link to the add-on).
@@ -38,7 +38,7 @@ $addons = [
                     'mobile_get_gapfill' => [], // Function in classes/output/mobile.php.
                 ], // Function needs caching for offline.
                 'styles' => [
-                    'url' => '/question/type/gapfill/mobile/styles_app.css',
+                    'url' => '/question/type/gapfill_v3/mobile/styles_app.css',
                     'version' => '1.05'
                 ]
             ]

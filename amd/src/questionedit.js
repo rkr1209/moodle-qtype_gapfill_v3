@@ -21,7 +21,7 @@
  */
 
 /* The data is stored in a hidden field */
-define(['jquery', 'qtype_gapfill/Item'], function($, Item) {
+define(['jquery', 'qtype_gapfill_v3/Item'], function($, Item) {
   return {
     init: function() {
       $('#id_answerdisplay').change(function() {
@@ -63,7 +63,7 @@ define(['jquery', 'qtype_gapfill/Item'], function($, Item) {
           });
           $('#id_error_itemsettings_button')[0].innerHTML = M.util.get_string(
             'itemsettingserror',
-            'qtype_gapfill'
+            'qtype_gapfill_v3'
           );
           return;
         }
@@ -101,7 +101,7 @@ define(['jquery', 'qtype_gapfill/Item'], function($, Item) {
           });
           $('#id_itemsettings_canvas').css({height: '100%', width: '100%'});
           $('#id_itemsettings_button').html(
-            M.util.get_string('editquestiontext', 'qtype_gapfill')
+            M.util.get_string('editquestiontext', 'qtype_gapfill_v3')
           );
           /* Setting the height by hand gets around a quirk of MSIE */
           $('#id_itemsettings_canvas').height(
@@ -122,7 +122,7 @@ define(['jquery', 'qtype_gapfill/Item'], function($, Item) {
             .removeAttr('disabled');
           $('#id_settings_popup').css('display', 'none');
           $('#id_itemsettings_button').html(
-            M.util.get_string('additemsettings', 'qtype_gapfill')
+            M.util.get_string('additemsettings', 'qtype_gapfill_v3')
           );
           $('[class^=atto_]').removeAttr('disabled');
         }
@@ -151,10 +151,10 @@ define(['jquery', 'qtype_gapfill/Item'], function($, Item) {
             $('#id_incorrecteditable').html(itemsettings.incorrectfeedback);
           }
           $("label[for*='id_correct']").text(
-            M.util.get_string('correct', 'qtype_gapfill')
+            M.util.get_string('correct', 'qtype_gapfill_v3')
           );
           $("label[for*='id_incorrect']").text(
-            M.util.get_string('incorrect', 'qtype_gapfill')
+            M.util.get_string('incorrect', 'qtype_gapfill_v3')
           );
           $('#id_itemsettings_popup .atto_image_button').attr(
             'disabled',
@@ -168,7 +168,7 @@ define(['jquery', 'qtype_gapfill/Item'], function($, Item) {
             'disabled',
             'true'
           );
-          var title = M.util.get_string('additemsettings', 'qtype_gapfill');
+          var title = M.util.get_string('additemsettings', 'qtype_gapfill_v3');
           /* The html jquery call will turn any encoded entities such as &gt; to html, i.e. > */
           title +=
             ': ' +

@@ -17,7 +17,7 @@
 /**
  * The question type class for the gapfill question type.
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2018 Marcus Green
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
@@ -32,11 +32,11 @@ require_once($CFG->dirroot . '/question/engine/lib.php');
  *
  * Load from database, and initialise class
  * A "fill in the gaps" cloze style question type
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2018 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_gapfill extends question_type {
+class qtype_gapfill_v3 extends question_type {
 
     /**
      * Whether the quiz statistics report can analyse
@@ -52,7 +52,7 @@ class qtype_gapfill extends question_type {
      * @return array
      */
     public function extra_question_fields() {
-        return ['question_gapfill', 'answerdisplay', 'delimitchars', 'casesensitive',
+        return ['question_gapfill_v3', 'answerdisplay', 'delimitchars', 'casesensitive',
             'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'singleuse'];
     }
 
@@ -64,7 +64,7 @@ class qtype_gapfill extends question_type {
      */
     public function get_question_options($question) {
         global $DB;
-        $question->options = $DB->get_record('question_gapfill', array('question' => $question->id), '*', MUST_EXIST);
+        $question->options = $DB->get_record('question_gapfill_v3', array('question' => $question->id), '*', MUST_EXIST);
         $question->options->itemsettings = $this->get_itemsettings($question);
         parent::get_question_options($question);
     }
@@ -110,12 +110,12 @@ class qtype_gapfill extends question_type {
     /**
      * Get settings e.g. feedback for correct and incorrect responses
      *
-     * @param qtype_gapfill_question $question
+     * @param qtype_gapfill_v3_question $question
      * @return string (json encoded string)
      */
     public function get_itemsettings($question) {
         global $DB;
-        $itemsettings = json_encode($DB->get_records('question_gapfill_settings', array('question' => $question->id)));
+        $itemsettings = json_encode($DB->get_records('question_gapfill_v3_settings', array('question' => $question->id)));
         return $itemsettings;
     }
 
@@ -232,9 +232,9 @@ class qtype_gapfill extends question_type {
         // Fetch old answer ids so that we can reuse them.
         $this->update_question_answers($question, $answerfields);
 
-        $options = $DB->get_record('question_gapfill', array('question' => $question->id));
-        $this->update_question_gapfill($question, $options, $context);
-        $this->update_item_settings($question, 'question_gapfill_settings');
+        $options = $DB->get_record('question_gapfill_v3', array('question' => $question->id));
+        $this->update_question_gapfill_v3($question, $options, $context);
+        $this->update_item_settings($question, 'question_gapfill_v3_settings');
 
         $this->save_hints($question, true);
         return true;
@@ -248,9 +248,9 @@ class qtype_gapfill extends question_type {
      * @param stdClass $options
      * @param context_course_object $context
      */
-    public function update_question_gapfill($question, $options, $context) {
+    public function update_question_gapfill_v3($question, $options, $context) {
         global $DB;
-        $options = $DB->get_record('question_gapfill', array('question' => $question->id));
+        $options = $DB->get_record('question_gapfill_v3', array('question' => $question->id));
         if (!$options) {
             $options = new stdClass();
             $options->question = $question->id;
@@ -266,7 +266,7 @@ class qtype_gapfill extends question_type {
             $options->optionsaftertext = '';
             $options->letterhints = '';
             $options->singleuse = '';
-            $options->id = $DB->insert_record('question_gapfill', $options);
+            $options->id = $DB->insert_record('question_gapfill_v3', $options);
         }
 
         $options->delimitchars = $question->delimitchars;
@@ -280,7 +280,7 @@ class qtype_gapfill extends question_type {
         $options->singleuse = $question->singleuse;
 
         $options = $this->save_combined_feedback_helper($options, $question, $context, true);
-        $DB->update_record('question_gapfill', $options);
+        $DB->update_record('question_gapfill_v3', $options);
     }
 
     /**
@@ -402,11 +402,11 @@ class qtype_gapfill extends question_type {
                 $setting->gaptext = $set['gaptext'];
                 $setting->correctfeedback = $set['correctfeedback'];
                 $setting->incorrectfeedback = $set['incorrectfeedback'];
-                $DB->insert_record('question_gapfill_settings', $setting);
+                $DB->insert_record('question_gapfill_v3_settings', $setting);
             }
         }
         foreach ($oldsettings as $os) {
-            $DB->delete_records('question_gapfill_settings', array('id' => $os->id));
+            $DB->delete_records('question_gapfill_v3_settings', array('id' => $os->id));
         }
     }
 
@@ -497,7 +497,7 @@ class qtype_gapfill extends question_type {
     public function export_to_xml($question, qformat_xml $format, $extra = null) {
         global $CFG;
         $pluginmanager = core_plugin_manager::instance();
-        $gapfillinfo = $pluginmanager->get_plugin_info('qtype_gapfill');
+        $gapfillinfo = $pluginmanager->get_plugin_info('qtype_gapfill_v3');
         /*convert json into an object */
         $question->options->itemsettings = json_decode($question->options->itemsettings);
 

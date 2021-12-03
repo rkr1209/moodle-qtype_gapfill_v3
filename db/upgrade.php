@@ -32,40 +32,40 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
 
     $dbman = $DB->get_manager();
     if ($oldversion < 2017070201) {
-        if (!$dbman->field_exists('question_gapfill', 'noduplicates')) {
+        if (!$dbman->field_exists('question_gapfill_v3', 'noduplicates')) {
             $field = new xmldb_field('noduplicates', XMLDB_TYPE_INTEGER, '1');
-            $table = new xmldb_table('question_gapfill');
+            $table = new xmldb_table('question_gapfill_v3');
             $dbman->add_field($table, $field);
         }
-        if (!$dbman->field_exists('question_gapfill', 'disableregex')) {
+        if (!$dbman->field_exists('question_gapfill_v3', 'disableregex')) {
             $field = new xmldb_field('disableregex', XMLDB_TYPE_INTEGER, '1');
-            $table = new xmldb_table('question_gapfill');
+            $table = new xmldb_table('question_gapfill_v3');
             $dbman->add_field($table, $field);
         }
 
-        if (!$dbman->field_exists('question_gapfill', 'fixedgapsize')) {
+        if (!$dbman->field_exists('question_gapfill_v3', 'fixedgapsize')) {
             $field = new xmldb_field('fixedgapsize', XMLDB_TYPE_INTEGER, '1');
-            $table = new xmldb_table('question_gapfill');
+            $table = new xmldb_table('question_gapfill_v3');
             $dbman->add_field($table, $field);
         }
 
-        if (!$dbman->field_exists('question_gapfill', 'optionsaftertext')) {
+        if (!$dbman->field_exists('question_gapfill_v3', 'optionsaftertext')) {
             $field = new xmldb_field('optionsaftertext', XMLDB_TYPE_INTEGER, '1', null, true, null, 0, 'fixedgapsize');
-            $table = new xmldb_table('question_gapfill');
+            $table = new xmldb_table('question_gapfill_v3');
             $dbman->add_field($table, $field);
         }
 
-        if (!$dbman->field_exists('question_gapfill', 'letterhints')) {
+        if (!$dbman->field_exists('question_gapfill_v3', 'letterhints')) {
             $field = new xmldb_field('letterhints', XMLDB_TYPE_INTEGER, '1', null, null, null, '0', 'optionsaftertext');
-            $table = new xmldb_table('question_gapfill');
+            $table = new xmldb_table('question_gapfill_v3');
             $dbman->add_field($table, $field);
         }
         upgrade_plugin_savepoint(true, 2017070201, 'qtype', 'gapfill');
     }
 
     if ($oldversion < 2017111700) {
-        if (!$dbman->table_exists('question_gapfill_settings')) {
-            $table = new xmldb_table('question_gapfill_settings');
+        if (!$dbman->table_exists('question_gapfill_v3_settings')) {
+            $table = new xmldb_table('question_gapfill_v3_settings');
             $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
             $table->add_field('question', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'id');
             $table->add_field('itemid', XMLDB_TYPE_TEXT, null, null, null, null, null, 'question');
@@ -79,9 +79,9 @@ function xmldb_qtype_gapfill_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2017111700, 'qtype', 'gapfill');
     }
     if ($oldversion < 2020091100) {
-        if (!$dbman->field_exists('question_gapfill', 'singleuse')) {
+        if (!$dbman->field_exists('question_gapfill_v3', 'singleuse')) {
             $field = new xmldb_field('singleuse', XMLDB_TYPE_INTEGER, '1', null, null, null, '0', 'optionsaftertext');
-            $table = new xmldb_table('question_gapfill');
+            $table = new xmldb_table('question_gapfill_v3');
             $dbman->add_field($table, $field);
         }
         // Gapfill savepoint reached.

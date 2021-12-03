@@ -17,7 +17,7 @@
 /**
  * Gapfill question definition class. Mainly about runtime
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2017 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,11 +25,11 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Gapfill question definition class.
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2017 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_gapfill_question extends question_graded_automatically_with_countback {
+class qtype_gapfill_v3_question extends question_graded_automatically_with_countback {
 
     /**
      * Apparently not used
@@ -285,7 +285,7 @@ class qtype_gapfill_question extends question_graded_automatically_with_countbac
      */
     public function get_validation_error(array $response) {
         if (!$this->is_gradable_response($response)) {
-            return get_string('pleaseenterananswer', 'qtype_gapfill');
+            return get_string('pleaseenterananswer', 'qtype_gapfill_v3');
         }
     }
 
@@ -406,7 +406,7 @@ class qtype_gapfill_question extends question_graded_automatically_with_countbac
      */
     public function initjs($singleuse = 0) {
         global $PAGE;
-        $PAGE->requires->js_call_amd('qtype_gapfill/dragdrop', 'init', ['singleuse' => $singleuse ?? 0]);
+        $PAGE->requires->js_call_amd('qtype_gapfill_v3/dragdrop', 'init', ['singleuse' => $singleuse ?? 0]);
     }
 
     /**

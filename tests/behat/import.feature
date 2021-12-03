@@ -1,4 +1,4 @@
-@mod @mod_quiz @qtype @qtype_gapfill @gapfill_import @javascript
+@mod @mod_quiz @qtype @qtype_gapfill_v3 @gapfill_import @javascript
 
 Feature: Test importing Gapfill questions
     As a teacher
@@ -22,7 +22,7 @@ Feature: Test importing Gapfill questions
   Scenario: import drag and drop into text question.
     And I navigate to "Question bank > Import" in current page administration
     And I set the field "id_format_xml" to "1"
-    And I upload "question/type/gapfill/tests/fixtures/gapfill_examples.xml" file to "Import" filemanager
+    And I upload "question/type/gapfill_v3/tests/fixtures/gapfill_examples.xml" file to "Import" filemanager
     And I press "id_submitbutton"
     Then I should see "Parsing questions from import file."
     And I should see "Importing 21 questions from file"

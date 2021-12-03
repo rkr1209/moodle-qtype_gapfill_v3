@@ -15,14 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mobile output class for qtype_gapfill
+ * Mobile output class for qtype_gapfill_v3
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2018 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace qtype_gapfill\output;
+namespace qtype_gapfill_v3\output;
 
 
 
@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Mobile output class for gapfill question type
  *
- * @package    qtype_gapfill
+ * @package    qtype_gapfill_v3
  * @copyright  2018 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -46,7 +46,7 @@ class mobile {
         global $CFG;
         $args = (object) $args;
         $folder = $args->appversioncode >= 3950 ? 'latest' : 'ionic3';
-        $templatepath = $CFG->dirroot."/question/type/gapfill/mobile/$folder/addon-qtype-gapfill.html";
+        $templatepath = $CFG->dirroot."/question/type/gapfill_v3/mobile/$folder/addon-qtype-gapfill.html";
         return [
             'templates' => [
                 [
@@ -54,7 +54,7 @@ class mobile {
                     'html' => file_get_contents($templatepath)
                     ]
             ],
-            'javascript' => file_get_contents($CFG->dirroot . '/question/type/gapfill/mobile/mobile.js')
+            'javascript' => file_get_contents($CFG->dirroot . '/question/type/gapfill_v3/mobile/mobile.js')
         ];
     }
 }
