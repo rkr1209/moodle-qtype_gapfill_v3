@@ -53,7 +53,7 @@ class qtype_gapfill_v3 extends question_type {
      */
     public function extra_question_fields() {
         return ['question_gapfill_v3', 'answerdisplay', 'delimitchars', 'casesensitive',
-            'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'letterhints', 'singleuse'];
+            'noduplicates', 'disableregex', 'fixedgapsize', 'optionsaftertext', 'manualgrading', 'letterhints', 'singleuse'];
     }
 
 
@@ -264,6 +264,7 @@ class qtype_gapfill_v3 extends question_type {
             $options->disableregex = '';
             $options->fixedgapsize = '';
             $options->optionsaftertext = '';
+            $options->manualgrading = '';
             $options->letterhints = '';
             $options->singleuse = '';
             $options->id = $DB->insert_record('question_gapfill_v3', $options);
@@ -276,6 +277,7 @@ class qtype_gapfill_v3 extends question_type {
         $options->disableregex = $question->disableregex;
         $options->fixedgapsize = $question->fixedgapsize;
         $options->optionsaftertext = $question->optionsaftertext;
+        $options->manualgrading = $question->manualgrading;
         $options->letterhints = $question->letterhints;
         $options->singleuse = $question->singleuse;
 
@@ -516,6 +518,8 @@ class qtype_gapfill_v3 extends question_type {
                 "</fixedgapsize>\n";
         $output .= '    <optionsaftertext>' . $question->options->optionsaftertext .
                 "</optionsaftertext>\n";
+        $output .= '    <manualgrading>' . $question->options->manualgrading .
+                "</manualgrading>\n";
         $output .= '    <letterhints>' . $question->options->letterhints .
                 "</letterhints>\n";
         foreach ($question->options->itemsettings as $set) {

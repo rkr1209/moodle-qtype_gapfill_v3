@@ -161,6 +161,11 @@ class qtype_gapfill_v3_edit_form extends question_edit_form {
         $mform->setDefault('optionsaftertext', $config->optionsaftertext);
         $mform->addHelpButton('optionsaftertext', 'optionsaftertext', 'qtype_gapfill_v3');
 
+        // Activate manual grading (disable auto grading) for this gapfill question.
+        $mform->addElement('advcheckbox', 'manualgrading', get_string('manualgrading', 'qtype_gapfill_v3'));
+        $mform->setDefault('manualgrading', $config->manualgrading);
+        $mform->addHelpButton('manualgrading', 'manualgrading', 'qtype_gapfill_v3');
+
         // Use plain string matching instead of regular expressions.
         $mform->addElement('advcheckbox', 'disableregex', get_string('disableregex', 'qtype_gapfill_v3'));
         $mform->addHelpButton('disableregex', 'disableregex', 'qtype_gapfill_v3');

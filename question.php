@@ -29,8 +29,13 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2017 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_gapfill_v3_question extends question_graded_automatically_with_countback {
 
+ class qtype_gapfill_v3_question extends question_graded_automatically_with_countback {
+    public function check_setting_manualgrading() { 
+    if ($question->manualgrading == true) {
+        $output .= '<div>'.$questiontext . '</div>' . $answeroptions;
+    } 
+}
     /**
      * Apparently not used
      *
