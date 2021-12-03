@@ -33,8 +33,11 @@ defined('MOODLE_INTERNAL') || die();
  class qtype_gapfill_v3_question extends question_graded_automatically_with_countback {
     public function check_setting_manualgrading() { 
     if ($question->manualgrading == true) {
-        $output .= '<div>'.$questiontext . '</div>' . $answeroptions;
-    } 
+        function make_behaviour(question_attempt $qa, $preferredbehaviour) {
+            // Shouldn't be here but workarround.
+            return question_engine::make_behaviour('manualgraded', $qa, $preferredbehaviour);
+        }
+    }
 }
     /**
      * Apparently not used
